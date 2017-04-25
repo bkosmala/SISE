@@ -7,20 +7,24 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int parametersLength = 1;
+        int parametersLength = 2;
+        String acronimParam = args[1];
 
         if(args.length != parametersLength) {
             handleIncorrectInput("Niepoprawne parametry wykonania programu");
         }
 
-        SearchStrategy searchStrategy;
+        //TODO do zmiany po zrobieniu wczytywania wygenerowanej ukladanki
+        Integer[][] puzzle = new Integer[4][4];
+
+        SearchStrategy puzzleSolver = null;
 
         if (args[0].equals("bfs")) {
-            searchStrategy = SearchStrategy.BFS;
+            puzzleSolver = new BsfSolver();
         } else if (args[0].equals("dfs")) {
-            searchStrategy = SearchStrategy.DFS;
+            puzzleSolver = new DfsSolver();
         } else if (args[0].equals("astr")) {
-            searchStrategy = SearchStrategy.A_STAR;
+            puzzleSolver = AstarSolverFactory.createAstarSolver(HeuristicType.fromAcronim(acronimParam), puzzle);
         } else {
             handleIncorrectInput("Niepoprawny akronim strategii!");
         }
@@ -28,7 +32,7 @@ public class Main {
         System.out.println("Hello world!");
 
         long startTime = System.currentTimeMillis();
-        //wywolanie algorytmu tutaj
+        puzzleSolver.solvePuzzle();
         long endTime = System.currentTimeMillis();
 
     }
