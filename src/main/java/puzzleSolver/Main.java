@@ -13,7 +13,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int parametersLength = 2;
+        int parametersLength = 3;
 
         if(args.length != parametersLength) {
         	
@@ -23,9 +23,9 @@ public class Main {
 
         //TODO do zmiany po zrobieniu wczytywania wygenerowanej ukladanki
         Integer[][] puzzle = new Integer[4][4];
-        
-        
-        int[][] input = IOOperations.wczytajZPliku("./src/main/resources/transformation.txt");
+            
+        // wczytywanie z pliku      
+        int[][] input = IOOperations.wczytajZPliku(args[2]);
 
         SearchStrategy puzzleSolver = null;
 

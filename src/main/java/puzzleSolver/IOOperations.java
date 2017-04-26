@@ -33,25 +33,24 @@ public class IOOperations {
 		int counter = 0;
 		String tab[] = {};
 		int [][] result={};
-		/*if(input.size()>0)
+		if(input.size()>0)
 		{
 			System.out.println("Odkodowane:");
 			String[] firstRow = input.get(0).split(" ");
-			System.out.println("");
 			
 		result = new int[Integer.parseInt(firstRow[0])][Integer.parseInt(firstRow[1])];
-		for(String s : input)
+		for(int i = 1; i<input.size();i++)
 		{
-			tab = s.split(" ");
+			tab = input.get(i).split(" ");
 			for(int k=0;k<tab.length;k++)
 			{
-				result[counter][k] = Double.parseDouble(tab[k]);
-				System.out.print(result[counter][k] + "\n");
+				result[counter][k] = Integer.parseInt(tab[k]);
+				System.out.print(result[counter][k] + " ");
 			}
 			counter++;
-			//System.out.println("");	
+			System.out.println("");			
 		}
-		}*/
+		}
 		
 		return result;
 	}
