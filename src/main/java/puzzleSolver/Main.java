@@ -1,5 +1,11 @@
 package puzzleSolver;
 
+import puzzleSolver.searcher.BsfSolver;
+import puzzleSolver.searcher.DfsSolver;
+import puzzleSolver.searcher.SearchStrategy;
+import puzzleSolver.searcher.astar.AstarSolverFactory;
+import puzzleSolver.searcher.astar.HeuristicType;
+
 /**
  * Created by maciek on 25.04.17.
  */
