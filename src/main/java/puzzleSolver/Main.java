@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int parametersLength = 2;
+        int parametersLength = 3;
 
         if(args.length != parametersLength) {
         	
@@ -17,9 +17,6 @@ public class Main {
 
         //TODO do zmiany po zrobieniu wczytywania wygenerowanej ukladanki
         Integer[][] puzzle = new Integer[4][4];
-        
-        
-        //int[][] inputs = IOOperations.wczytajZPliku("./src/main/resources/transformation.txt");
 
         SearchStrategy puzzleSolver = null;
 
@@ -32,6 +29,10 @@ public class Main {
         } else {
             handleIncorrectInput("Niepoprawny akronim strategii!");
         }
+        
+        // wczytywanie z pliku
+        
+        int[][] inputs = IOOperations.wczytajZPliku(args[2]);
 
         System.out.println("Hello world!");
 
