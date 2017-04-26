@@ -192,3 +192,4 @@ nbdist/
 .nb-gradle/
 
 # End of https://www.gitignore.io/api/c++,java,eclipse,netbeans,intellij,codeblocks
+/target/
