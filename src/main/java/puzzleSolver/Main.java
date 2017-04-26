@@ -25,14 +25,14 @@ public class Main {
         Integer[][] puzzle = new Integer[4][4];
         
         
-        //int[][] inputs = IOOperations.wczytajZPliku("./src/main/resources/transformation.txt");
+        int[][] input = IOOperations.wczytajZPliku("./src/main/resources/transformation.txt");
 
         SearchStrategy puzzleSolver = null;
 
         if (args[0].equals("bfs")) {
             puzzleSolver = new BsfSolver();
         } else if (args[0].equals("dfs")) {
-            puzzleSolver = new DfsSolver();
+            puzzleSolver = new DfsSolver("",input);
         } else if (args[0].equals("astr")) {
             puzzleSolver = AstarSolverFactory.createAstarSolver(HeuristicType.fromAcronim(acronimParam), puzzle);
         } else {
