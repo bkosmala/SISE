@@ -6,15 +6,14 @@ package puzzleSolver.searcher;
 public class DfsSolver implements SearchStrategy {
 
     private String searchOrder;
-    private Integer puzzle[][];
+    private int puzzle[][];
+    
+    private int solutionLength;
 
-    public DfsSolver(String searchOrder, Integer[][] puzzle) {
+    public DfsSolver(String searchOrder, int[][] puzzle) {
         this.searchOrder = searchOrder;
         this.puzzle = puzzle;
     }
-
-    //todo wywalic pozniej
-    public DfsSolver() {}
 
     public void solvePuzzle() {
 
