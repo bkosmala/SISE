@@ -8,14 +8,18 @@ public class Main {
     public static void main(String[] args) {
 
         int parametersLength = 2;
-        String acronimParam = args[1];
 
         if(args.length != parametersLength) {
+        	
             handleIncorrectInput("Niepoprawne parametry wykonania programu");
         }
+        String acronimParam = args[1];
 
         //TODO do zmiany po zrobieniu wczytywania wygenerowanej ukladanki
         Integer[][] puzzle = new Integer[4][4];
+        
+        
+        //int[][] inputs = IOOperations.wczytajZPliku("./src/main/resources/transformation.txt");
 
         SearchStrategy puzzleSolver = null;
 
