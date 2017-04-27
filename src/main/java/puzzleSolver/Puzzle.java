@@ -18,7 +18,29 @@ public class Puzzle {
 
     private int zeroColumn;
     private int zeroRow;
+    
+    public Puzzle(int[][] puzzleArray)
+    {
+    	this.puzzleArray = puzzleArray;
+    }
+    
+    public static void init(int[][] puzzleArray)
+    {
+    	if(!Utils.isNullOrEmpty(puzzleArray)){
+        	goalState  = new int[puzzleArray.length][puzzleArray[0].length];
+        	
+        	int counter = 1;
+            for (int n = 0; n < goalState.length; n++) {
 
+                for (int j = 0; j < goalState[n].length; j++) {
+                    goalState[n][j]=counter;
+                    counter++;
+                }
+            }	
+            goalState[goalState.length-1][goalState[0].length-1] = 0; 
+    	}
+    }
+    
     public boolean moveLeft() {
 
         if (zeroColumn <= 0) {
@@ -77,28 +99,13 @@ public class Puzzle {
     }
 
     public boolean isGoalState() {
-        // todo nie testowane
-        return Arrays.deepEquals(puzzleArray, goalState);
+        // sprawdzone - dzia³a
+		return Arrays.deepEquals(puzzleArray, goalState);
     }
 
     @Override
     public String toString() {
-
-        StringBuilder builder = new StringBuilder();
-        String newLine = System.lineSeparator();
-
-        for (int n = 0; n < puzzleArray.length; n++) {
-
-            for (int j = 0; j < puzzleArray[n].length; j++) {
-                builder.append(puzzleArray[n][j] + " ");
-            }
-            builder.append(newLine);
-        }
-//        return Arrays.stream(puzzleArray)
-//                .map(Arrays::toString)
-//                .collect(Collectors.joining(System.lineSeparator()));
-
-        return builder.toString();
+        return Utils.toString(this.puzzleArray);
     }
 
     @Override
@@ -127,4 +134,9 @@ public class Puzzle {
     public int hashCode() {
         return toString().hashCode();
     }
+
+	public static int[][] getGoalState() {
+		return goalState;
+	}
+    
 }
