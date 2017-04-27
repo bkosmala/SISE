@@ -28,6 +28,7 @@ public class Main {
         int[][] input = IOOperations.wczytajZPliku(args[2]);
 
         SearchStrategy puzzleSolver = null;
+        Puzzle.init(input);
 
         if (args[0].equals("bfs")) {
             puzzleSolver = new BsfSolver();
