@@ -2,6 +2,7 @@ package puzzleSolver.searcher;
 
 import java.util.Arrays;
 import javafx.util.Pair;
+import java.util.Stack;
 
 import puzzleSolver.Puzzle;
 import puzzleSolver.Utils;
@@ -24,7 +25,10 @@ public class DfsSolver implements SearchStrategy {
     public void solvePuzzle() {
     	  	
     	Puzzle root = new Puzzle(this.puzzle);  	
-    	Pair<Puzzle, String> puzzState = new Pair(root,"D");
+    	Pair<Puzzle, String> puzzState = new Pair(root,"");
+    	
+    	Stack<Pair<Puzzle, String>> stack = new Stack<Pair<Puzzle, String>>();
+    	stack.push(puzzState);
     	
     	System.out.println(Utils.toString(this.puzzle));
     	System.out.println(Utils.toString(Puzzle.getGoalState()));
