@@ -33,6 +33,9 @@ public class DfsSolver implements SearchStrategy {
     	Stack<Pair<Puzzle, String>> stack = new Stack<Pair<Puzzle, String>>();
     	stack.push(puzzState);
     	
+    	//test
+    	Puzzle next = new Puzzle(root);
+    	
     	System.out.println(Utils.toString(this.puzzle));
     	System.out.println(Utils.toString(Puzzle.getGoalState()));
     	

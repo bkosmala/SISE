@@ -8,7 +8,8 @@ import java.util.stream.Collectors;
  */
 public class Puzzle {
 
-    private int dimension;
+    private int dimensionRows;
+    private int dimensionColumns;
     private int[][] puzzleArray;
     private static int[][] goalState;
     private boolean isGoalState;
@@ -19,6 +20,36 @@ public class Puzzle {
     public Puzzle(int[][] puzzleArray)
     {
     	this.puzzleArray = puzzleArray;
+    	this.dimensionRows = puzzleArray.length;
+    	this.dimensionColumns = puzzleArray[0].length;
+    	
+        for (int n = 0; n < this.dimensionRows; n++) {
+            for (int j = 0; j < this.dimensionColumns; j++) {
+            	if(this.puzzleArray[n][j] == 0)
+            	{
+            		this.zeroRow = n;
+            		this.zeroColumn = j;
+            		break;
+            	}
+            }
+        }
+    }
+    
+    public Puzzle(Puzzle original)
+    {
+    	this.dimensionRows = original.dimensionRows;
+    	this.dimensionColumns = original.dimensionColumns;
+    	this.puzzleArray  = new int[original.dimensionRows][original.dimensionColumns];
+    	int[][] oldPuzzleArray  = original.puzzleArray;
+    	
+        for (int n = 0; n < original.dimensionRows; n++) {
+            for (int j = 0; j < original.dimensionColumns; j++) {
+            	this.puzzleArray[n][j]=oldPuzzleArray[n][j];
+            }
+        }
+        
+        this.zeroRow = original.zeroRow;
+        this.zeroColumn = original.zeroColumn;      
     }
     
     public static void init(int[][] puzzleArray)
@@ -38,6 +69,8 @@ public class Puzzle {
     	}
     }
     
+
+    
     public boolean moveLeft() {
 
         if (zeroColumn <= 0) {
@@ -55,7 +88,7 @@ public class Puzzle {
 
     public boolean moveRight() {
 
-        if (zeroColumn >= dimension - 1) {
+        if (zeroColumn >= this.dimensionRows - 1) {
             return false;
         }
         int temp = puzzleArray[zeroRow][zeroColumn + 1];
@@ -83,7 +116,7 @@ public class Puzzle {
 
     public boolean moveDown() {
 
-        if (zeroRow >= dimension - 1) {
+        if (zeroRow >= this.dimensionColumns - 1) {
             return false;
         }
         int temp = puzzleArray[zeroRow + 1][zeroColumn];
@@ -111,12 +144,12 @@ public class Puzzle {
         if (o instanceof Puzzle) {
             Puzzle state = (Puzzle) o;
 
-            if (state.dimension != this.dimension) {
+            if (state.dimensionRows != this.dimensionRows || state.dimensionColumns != this.dimensionColumns) {
                 return false;
             }
 
-            for (int i = 0; i < dimension; i++){
-                for (int j = 0; j < dimension; j++){
+            for (int i = 0; i < this.dimensionRows; i++){
+                for (int j = 0; j < this.dimensionColumns; j++){
                     if (state.puzzleArray[i][j] != puzzleArray[i][j]) {
                         return false;
                     }
@@ -134,6 +167,14 @@ public class Puzzle {
 
 	public static int[][] getGoalState() {
 		return goalState;
+	}
+
+	public int getDimensionRows() {
+		return dimensionRows;
+	}
+
+	public int getDimensionColumns() {
+		return dimensionColumns;
 	}
     
 }
