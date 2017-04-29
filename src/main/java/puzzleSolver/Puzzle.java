@@ -9,11 +9,8 @@ import java.util.stream.Collectors;
 public class Puzzle {
 
     private int dimension;
-
     private int[][] puzzleArray;
-
     private static int[][] goalState;
-
     private boolean isGoalState;
 
     private int zeroColumn;

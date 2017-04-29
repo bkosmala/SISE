@@ -4,6 +4,7 @@ import java.util.Arrays;
 import javafx.util.Pair;
 import java.util.Stack;
 
+import puzzleSolver.MovingOrder;
 import puzzleSolver.Puzzle;
 import puzzleSolver.Utils;
 
@@ -12,14 +13,16 @@ import puzzleSolver.Utils;
  */
 public class DfsSolver implements SearchStrategy {
 
-    private String searchOrder;
+    private MovingOrder searchOrder;
     private int puzzle[][];
     
     private int solutionLength;
 
-    public DfsSolver(String searchOrder, int[][] puzzle) {
+    public DfsSolver(MovingOrder searchOrder, int[][] puzzle) {
         this.searchOrder = searchOrder;
         this.puzzle = puzzle;
+        System.out.println("");
+        System.out.println(searchOrder.toString());
     }
 
     public void solvePuzzle() {

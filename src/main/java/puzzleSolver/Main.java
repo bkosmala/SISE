@@ -20,6 +20,7 @@ public class Main {
             handleIncorrectInput("Niepoprawne parametry wykonania programu");
         }
         String acronimParam = args[1];
+        System.out.println(acronimParam);
 
         //TODO do zmiany po zrobieniu wczytywania wygenerowanej ukladanki
         Integer[][] puzzle = new Integer[4][4];
@@ -33,7 +34,7 @@ public class Main {
         if (args[0].equals("bfs")) {
             puzzleSolver = new BsfSolver();
         } else if (args[0].equals("dfs")) {
-            puzzleSolver = new DfsSolver("",input);
+            puzzleSolver = new DfsSolver(MovingOrder.fromAcronim(acronimParam),input);
         } else if (args[0].equals("astr")) {
             puzzleSolver = AstarSolverFactory.createAstarSolver(HeuristicType.fromAcronim(acronimParam), puzzle);
         } else {
