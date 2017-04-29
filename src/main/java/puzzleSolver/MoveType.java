@@ -1,7 +1,7 @@
 package puzzleSolver;
 
 public enum MoveType {
-	LEFT('L'),RIGHT('R'),UP('U'),DOWN('D');
+	LEFT('L'),RIGHT('R'),UP('U'),DOWN('D'),NONE('N');
 	
 	private char moveType;
 	MoveType(char moveType)

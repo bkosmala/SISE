@@ -69,6 +69,24 @@ public class Puzzle {
     	}
     }
     
+    public boolean move(MoveType nextMove)
+    {
+    	switch(nextMove)
+    	{
+    	case NONE :
+    		return false;
+    	case LEFT :
+    		return this.moveLeft();
+    	case RIGHT :
+    		return this.moveRight();
+    	case UP :
+    		return this.moveUp();
+    	case DOWN :
+    		return this.moveDown();
+    	default: 
+    		return false;
+    	}	
+    }
 
     
     public boolean moveLeft() {
@@ -81,14 +99,14 @@ public class Puzzle {
         puzzleArray[zeroRow][zeroColumn - 1] = 0;
         puzzleArray[zeroRow][zeroColumn] = temp;
 
-        zeroColumn -= zeroColumn;
+        zeroColumn -= -1;
 
         return true;
     }
 
     public boolean moveRight() {
 
-        if (zeroColumn >= this.dimensionRows - 1) {
+        if (zeroColumn >= this.dimensionColumns - 1) {
             return false;
         }
         int temp = puzzleArray[zeroRow][zeroColumn + 1];
@@ -116,7 +134,7 @@ public class Puzzle {
 
     public boolean moveDown() {
 
-        if (zeroRow >= this.dimensionColumns - 1) {
+        if (zeroRow >= this.dimensionRows - 1) {
             return false;
         }
         int temp = puzzleArray[zeroRow + 1][zeroColumn];
