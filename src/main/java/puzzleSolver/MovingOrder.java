@@ -30,7 +30,6 @@ public enum MovingOrder {
 	
     private String acronim;
     private MoveType[] sequence;
-    private MoveType current;
 
     MovingOrder(String acronim) {
         this.acronim = acronim;     
@@ -40,7 +39,6 @@ public enum MovingOrder {
         {
         	this.sequence[i] =  MoveType.fromAcronim(acronim.charAt(i));
         }
-        this.current = MoveType.NONE;
     }
 
     public static MovingOrder fromAcronim(String acronim) {
@@ -55,38 +53,11 @@ public enum MovingOrder {
     public String getAcronim() {
         return acronim;
     }
+
+	public MoveType[] getSequence() {
+		return sequence;
+	}
     
-    public MoveType getLastMove()
-    {
-    	return this.current;
-    }
-    
-    public MoveType nextMove()
-    {
-    	if(this.current == MoveType.NONE)
-    	{
-    		this.current = this.sequence[0];
-    		return this.sequence[0];
-    	}
-    	else if (this.current == this.sequence[0])
-    	{
-    		this.current = this.sequence[1];
-    		return this.sequence[1];
-    	}
-    	else if (this.current == this.sequence[1])
-    	{
-    		this.current = this.sequence[2];
-    		return this.sequence[2];
-    	}
-    	else if (this.current == this.sequence[2])
-    	{
-    		this.current = this.sequence[3];
-    		return this.sequence[3];
-    	}
-    	else
-    	{
-    		return MoveType.NONE;
-    	}	
-    }
+
 
 }

@@ -17,6 +17,8 @@ public class Puzzle {
     private int zeroColumn;
     private int zeroRow;
     
+    private MoveType current;
+    
     public Puzzle(int[][] puzzleArray)
     {
     	this.puzzleArray = puzzleArray;
@@ -33,6 +35,7 @@ public class Puzzle {
             	}
             }
         }
+        this.current = MoveType.NONE;
     }
     
     public Puzzle(Puzzle original)
@@ -49,7 +52,8 @@ public class Puzzle {
         }
         
         this.zeroRow = original.zeroRow;
-        this.zeroColumn = original.zeroColumn;      
+        this.zeroColumn = original.zeroColumn;
+        this.current = original.current;
     }
     
     public static void init(int[][] puzzleArray)
@@ -90,7 +94,7 @@ public class Puzzle {
 
     
     public boolean moveLeft() {
-
+    	System.out.println("Zero Column : " + zeroColumn);
         if (zeroColumn <= 0) {
             return false;
         }
@@ -99,19 +103,19 @@ public class Puzzle {
         puzzleArray[zeroRow][zeroColumn - 1] = 0;
         puzzleArray[zeroRow][zeroColumn] = temp;
 
-        zeroColumn -= -1;
+        zeroColumn -= 1;
 
         return true;
     }
 
     public boolean moveRight() {
-
+    	System.out.println("Zero Column : " + zeroColumn);
         if (zeroColumn >= this.dimensionColumns - 1) {
             return false;
         }
-        int temp = puzzleArray[zeroRow][zeroColumn + 1];
-        puzzleArray[zeroRow][zeroColumn + 1] = 0;
-        puzzleArray[zeroRow][zeroColumn] = temp;
+        int temp = this.puzzleArray[zeroRow][zeroColumn + 1];
+        this.puzzleArray[zeroRow][zeroColumn + 1] = 0;
+        this.puzzleArray[zeroRow][zeroColumn] = temp;
 
         zeroColumn += 1;
 
@@ -119,7 +123,7 @@ public class Puzzle {
     }
 
     public boolean moveUp() {
-
+    	System.out.println("Zero Row : " + zeroRow);
         if (zeroRow <= 0) {
             return false;
         }
@@ -133,7 +137,7 @@ public class Puzzle {
     }
 
     public boolean moveDown() {
-
+    	System.out.println("Zero Row : " + zeroRow);
         if (zeroRow >= this.dimensionRows - 1) {
             return false;
         }
@@ -186,6 +190,39 @@ public class Puzzle {
 	public static int[][] getGoalState() {
 		return goalState;
 	}
+	
+	public MoveType getLastMove()
+    {
+    	return this.current;
+    }
+    
+    public MoveType getNextMoveDirection(MovingOrder m)
+    {
+    	if(this.current == MoveType.NONE)
+    	{
+    		this.current = m.getSequence()[0];
+    		return m.getSequence()[0];
+    	}
+    	else if (this.current == m.getSequence()[0])
+    	{
+    		this.current = m.getSequence()[1];
+    		return m.getSequence()[1];
+    	}
+    	else if (this.current == m.getSequence()[1])
+    	{
+    		this.current = m.getSequence()[2];
+    		return m.getSequence()[2];
+    	}
+    	else if (this.current == m.getSequence()[2])
+    	{
+    		this.current = m.getSequence()[3];
+    		return m.getSequence()[3];
+    	}
+    	else
+    	{
+    		return MoveType.NONE;
+    	}	
+    }
 
 	public int getDimensionRows() {
 		return dimensionRows;
