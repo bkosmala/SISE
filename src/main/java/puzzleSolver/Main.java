@@ -1,6 +1,6 @@
 package puzzleSolver;
 
-import puzzleSolver.searcher.BsfSolver;
+import puzzleSolver.searcher.BfsSolver;
 import puzzleSolver.searcher.DfsSolver;
 import puzzleSolver.searcher.SearchStrategy;
 import puzzleSolver.searcher.astar.AstarSolverFactory;
@@ -30,7 +30,7 @@ public class Main {
         SearchStrategy puzzleSolver = null;
 
         if (args[0].equals("bfs")) {
-            puzzleSolver = new BsfSolver();
+            puzzleSolver = new BfsSolver();
         } else if (args[0].equals("dfs")) {
             puzzleSolver = new DfsSolver("",input);
         } else if (args[0].equals("astr")) {

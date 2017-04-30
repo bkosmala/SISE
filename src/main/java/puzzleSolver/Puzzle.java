@@ -1,27 +1,37 @@
 package puzzleSolver;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by maciek on 26.04.17.
  */
 public class Puzzle {
 
+    // todo maja być dwa wymiary - beda mogly byc rozne
     private int dimension;
 
     private int[][] puzzleArray;
 
-    private static int[][] goalState;
+    private static int[][] goalState = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,0}};
 
-    private boolean isGoalState;
+    private short zeroColumn;
+    private short zeroRow;
 
-    private int zeroColumn;
-    private int zeroRow;
+    public Puzzle(Puzzle original) {
+        dimension = original.dimension;
+        puzzleArray = new int[dimension][dimension];
+        for (int i = 0; i < dimension; i++) {
+            puzzleArray[i] = ArrayUtils.clone(original.puzzleArray[i]);
+        }
+    }
 
     public boolean moveLeft() {
 
-        if (zeroColumn <= 0) {
+        if (!canMoveLeft()) {
             return false;
         }
 
@@ -36,7 +46,7 @@ public class Puzzle {
 
     public boolean moveRight() {
 
-        if (zeroColumn >= dimension - 1) {
+        if (!canMoveRight()) {
             return false;
         }
         int temp = puzzleArray[zeroRow][zeroColumn + 1];
@@ -50,7 +60,7 @@ public class Puzzle {
 
     public boolean moveUp() {
 
-        if (zeroRow <= 0) {
+        if (!canMoveUp()) {
             return false;
         }
         int temp = puzzleArray[zeroRow - 1][zeroColumn];
@@ -62,19 +72,38 @@ public class Puzzle {
         return true;
     }
 
-    public boolean moveDown() {
+    public Optional<Puzzle> moveDown() {
 
-        if (zeroRow >= dimension - 1) {
-            return false;
+        if (!canMoveDown()) {
+            return Optional.empty();
         }
-        int temp = puzzleArray[zeroRow + 1][zeroColumn];
-        puzzleArray[zeroRow + 1][zeroColumn] = 0;
-        puzzleArray[zeroRow][zeroColumn] = temp;
+        Puzzle newPuzzle = new Puzzle(this);        // kopia
 
-        zeroRow += 1;
+        int temp = newPuzzle.puzzleArray[zeroRow + 1][zeroColumn];
+        newPuzzle.puzzleArray[zeroRow + 1][zeroColumn] = 0;
+        newPuzzle.puzzleArray[zeroRow][zeroColumn] = temp;
 
-        return true;
+        newPuzzle.zeroRow += 1;
+
+        return Optional.of(newPuzzle);
     }
+
+    public boolean canMoveDown() {
+        return zeroRow < dimension - 1;
+    }
+
+    public boolean canMoveUp() {
+        return zeroRow > 0;
+    }
+
+    public boolean canMoveRight() {
+        return zeroColumn < dimension - 1;
+    }
+
+    public boolean canMoveLeft() {
+        return zeroColumn > 0;
+    }
+
 
     public boolean isGoalState() {
         // todo nie testowane
@@ -126,5 +155,9 @@ public class Puzzle {
     @Override
     public int hashCode() {
         return toString().hashCode();
+    }
+
+    public List<Puzzle> getAncestors(String searchOrder) {
+        if (canMoveX(searchOrder.charAt(0)))
     }
 }
