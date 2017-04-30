@@ -12,7 +12,16 @@ import puzzleSolver.searcher.astar.HeuristicType;
 public class Main {
 
     public static void main(String[] args) {
-
+/*******************************************
+ Nierozwi¹zane problemy:
+ 1. Brak ograniczeñ na zajêtoœæ pamiêci w BFS i DFS.
+ 	W tym:
+ 	"Dodatkowo w przypadku strategii "w g³¹b" nale¿y ustaliæ maksymaln¹ dozwolon¹ g³êbokoœæ rekursji,
+ 	która nie mo¿e byæ mniejsza ni¿ 20 (wartoœæ tê mo¿na wpisaæ na sztywno do programu). 
+ 	W sytuacji, gdy program osi¹gnie tak¹ g³êbokoœæ nie znalaz³szy rozwi¹zania,
+ 	powinien wykonaæ nawrót." - co z tym? - zstosowaliœmy implementacjê ze stosem nie z rekurencj¹.
+ 
+ ******************************************/
         int parametersLength = 3;
 
         if(args.length != parametersLength) {

@@ -53,7 +53,7 @@ public class Puzzle {
         
         this.zeroRow = original.zeroRow;
         this.zeroColumn = original.zeroColumn;
-        this.current = original.current;
+        this.current = MoveType.NONE;
     }
     
     public static void init(int[][] puzzleArray)
@@ -94,7 +94,6 @@ public class Puzzle {
 
     
     public boolean moveLeft() {
-    	System.out.println("Zero Column : " + zeroColumn);
         if (zeroColumn <= 0) {
             return false;
         }
@@ -109,7 +108,6 @@ public class Puzzle {
     }
 
     public boolean moveRight() {
-    	System.out.println("Zero Column : " + zeroColumn);
         if (zeroColumn >= this.dimensionColumns - 1) {
             return false;
         }
@@ -123,7 +121,6 @@ public class Puzzle {
     }
 
     public boolean moveUp() {
-    	System.out.println("Zero Row : " + zeroRow);
         if (zeroRow <= 0) {
             return false;
         }
@@ -137,7 +134,6 @@ public class Puzzle {
     }
 
     public boolean moveDown() {
-    	System.out.println("Zero Row : " + zeroRow);
         if (zeroRow >= this.dimensionRows - 1) {
             return false;
         }
