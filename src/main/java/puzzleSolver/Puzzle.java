@@ -16,83 +16,77 @@ public class Puzzle {
 
     private int zeroColumn;
     private int zeroRow;
-    
+
     private MoveType current;
-    
-    public Puzzle(int[][] puzzleArray)
-    {
-    	this.puzzleArray = puzzleArray;
-    	this.dimensionRows = puzzleArray.length;
-    	this.dimensionColumns = puzzleArray[0].length;
-    	
+
+    public Puzzle(int[][] puzzleArray) {
+        this.puzzleArray = puzzleArray;
+        this.dimensionRows = puzzleArray.length;
+        this.dimensionColumns = puzzleArray[0].length;
+
         for (int n = 0; n < this.dimensionRows; n++) {
             for (int j = 0; j < this.dimensionColumns; j++) {
-            	if(this.puzzleArray[n][j] == 0)
-            	{
-            		this.zeroRow = n;
-            		this.zeroColumn = j;
-            		break;
-            	}
+                if (this.puzzleArray[n][j] == 0) {
+                    this.zeroRow = n;
+                    this.zeroColumn = j;
+                    break;
+                }
             }
         }
         this.current = MoveType.NONE;
     }
-    
-    public Puzzle(Puzzle original)
-    {
-    	this.dimensionRows = original.dimensionRows;
-    	this.dimensionColumns = original.dimensionColumns;
-    	this.puzzleArray  = new int[original.dimensionRows][original.dimensionColumns];
-    	int[][] oldPuzzleArray  = original.puzzleArray;
-    	
+
+    public Puzzle(Puzzle original) {
+        this.dimensionRows = original.dimensionRows;
+        this.dimensionColumns = original.dimensionColumns;
+        this.puzzleArray = new int[original.dimensionRows][original.dimensionColumns];
+        int[][] oldPuzzleArray = original.puzzleArray;
+
         for (int n = 0; n < original.dimensionRows; n++) {
             for (int j = 0; j < original.dimensionColumns; j++) {
-            	this.puzzleArray[n][j]=oldPuzzleArray[n][j];
+                this.puzzleArray[n][j] = oldPuzzleArray[n][j];
             }
         }
-        
+
         this.zeroRow = original.zeroRow;
         this.zeroColumn = original.zeroColumn;
         this.current = MoveType.NONE;
     }
-    
-    public static void init(int[][] puzzleArray)
-    {
-    	if(!Utils.isNullOrEmpty(puzzleArray)){
-        	goalState  = new int[puzzleArray.length][puzzleArray[0].length];
-        	
-        	int counter = 1;
+
+    public static void init(int[][] puzzleArray) {
+        if (!Utils.isNullOrEmpty(puzzleArray)) {
+            goalState = new int[puzzleArray.length][puzzleArray[0].length];
+
+            int counter = 1;
             for (int n = 0; n < goalState.length; n++) {
 
                 for (int j = 0; j < goalState[n].length; j++) {
-                    goalState[n][j]=counter;
+                    goalState[n][j] = counter;
                     counter++;
                 }
-            }	
-            goalState[goalState.length-1][goalState[0].length-1] = 0; 
-    	}
-    }
-    
-    public boolean move(MoveType nextMove)
-    {
-    	switch(nextMove)
-    	{
-    	case NONE :
-    		return false;
-    	case LEFT :
-    		return this.moveLeft();
-    	case RIGHT :
-    		return this.moveRight();
-    	case UP :
-    		return this.moveUp();
-    	case DOWN :
-    		return this.moveDown();
-    	default: 
-    		return false;
-    	}	
+            }
+            goalState[goalState.length - 1][goalState[0].length - 1] = 0;
+        }
     }
 
-    
+    public boolean move(MoveType nextMove) {
+        switch (nextMove) {
+            case NONE:
+                return false;
+            case LEFT:
+                return this.moveLeft();
+            case RIGHT:
+                return this.moveRight();
+            case UP:
+                return this.moveUp();
+            case DOWN:
+                return this.moveDown();
+            default:
+                return false;
+        }
+    }
+
+
     public boolean moveLeft() {
         if (zeroColumn <= 0) {
             return false;
@@ -147,8 +141,7 @@ public class Puzzle {
     }
 
     public boolean isGoalState() {
-        // sprawdzone - dzia³a
-		return Arrays.deepEquals(puzzleArray, goalState);
+        return Arrays.deepEquals(puzzleArray, goalState);
     }
 
     @Override
@@ -166,8 +159,8 @@ public class Puzzle {
                 return false;
             }
 
-            for (int i = 0; i < this.dimensionRows; i++){
-                for (int j = 0; j < this.dimensionColumns; j++){
+            for (int i = 0; i < this.dimensionRows; i++) {
+                for (int j = 0; j < this.dimensionColumns; j++) {
                     if (state.puzzleArray[i][j] != puzzleArray[i][j]) {
                         return false;
                     }
@@ -183,49 +176,38 @@ public class Puzzle {
         return toString().hashCode();
     }
 
-	public static int[][] getGoalState() {
-		return goalState;
-	}
-	
-	public MoveType getLastMove()
-    {
-    	return this.current;
-    }
-    
-    public MoveType getNextMoveDirection(MovingOrder m)
-    {
-    	if(this.current == MoveType.NONE)
-    	{
-    		this.current = m.getSequence()[0];
-    		return m.getSequence()[0];
-    	}
-    	else if (this.current == m.getSequence()[0])
-    	{
-    		this.current = m.getSequence()[1];
-    		return m.getSequence()[1];
-    	}
-    	else if (this.current == m.getSequence()[1])
-    	{
-    		this.current = m.getSequence()[2];
-    		return m.getSequence()[2];
-    	}
-    	else if (this.current == m.getSequence()[2])
-    	{
-    		this.current = m.getSequence()[3];
-    		return m.getSequence()[3];
-    	}
-    	else
-    	{
-    		return MoveType.NONE;
-    	}	
+    public static int[][] getGoalState() {
+        return goalState;
     }
 
-	public int getDimensionRows() {
-		return dimensionRows;
-	}
+    public MoveType getLastMove() {
+        return this.current;
+    }
 
-	public int getDimensionColumns() {
-		return dimensionColumns;
-	}
-    
+    public MoveType getNextMoveDirection(MovingOrder m) {
+        if (this.current == MoveType.NONE) {
+            this.current = m.getSequence()[0];
+            return m.getSequence()[0];
+        } else if (this.current == m.getSequence()[0]) {
+            this.current = m.getSequence()[1];
+            return m.getSequence()[1];
+        } else if (this.current == m.getSequence()[1]) {
+            this.current = m.getSequence()[2];
+            return m.getSequence()[2];
+        } else if (this.current == m.getSequence()[2]) {
+            this.current = m.getSequence()[3];
+            return m.getSequence()[3];
+        } else {
+            return MoveType.NONE;
+        }
+    }
+
+    public int getDimensionRows() {
+        return dimensionRows;
+    }
+
+    public int getDimensionColumns() {
+        return dimensionColumns;
+    }
+
 }

@@ -16,7 +16,7 @@ public class DfsSolver implements SearchStrategy {
 
     private MovingOrder searchOrder;
     private int puzzle[][];
-    
+
     ArrayList<Puzzle> visitedState;
     private int solutionLength;
 
@@ -29,89 +29,72 @@ public class DfsSolver implements SearchStrategy {
     }
 
     public void solvePuzzle() {
-    	//TODO - rozwa¿yæ problem ustawienie maksymalnej g³êbokoœci rekursji 
-    	//       (? - nie ma rekurencji) - czy potrzebne?
-    	//TODO - obs³u¿yæ sytuacjê dla której progrm nie znalaz³ rozwi¹zania
-    	//TODO - obs³u¿yæ potencjalny problem ze zbyt du¿¹ iloœci¹ odwiedzonych stanów
-    	//TODO - zapis wyników
-    	//TODO - zapis statystyk
-    	
-    	//to tests
-    	int counter=0;
-    	 	
-    	Puzzle puzzState = new Puzzle(this.puzzle);  	
-    	MoveType nextMove;
-    	
-    	Stack<Puzzle> stack = new Stack<Puzzle>();
-    	stack.push(puzzState);
-    	
-    	while(!stack.empty())
-    	{
-    		puzzState = stack.peek();
-    		nextMove = puzzState.getNextMoveDirection(searchOrder);
-			System.out.println(nextMove.toString());
+        //TODO - rozwaï¿½yï¿½ problem ustawienie maksymalnej gï¿½ï¿½bokoï¿½ci rekursji
+        //       (? - nie ma rekurencji) - czy potrzebne?
+        //TODO - obsï¿½uï¿½yï¿½ sytuacjï¿½ dla ktï¿½rej progrm nie znalazï¿½ rozwiï¿½zania
+        //TODO - obsï¿½uï¿½yï¿½ potencjalny problem ze zbyt duï¿½ï¿½ iloï¿½ciï¿½ odwiedzonych stanï¿½w
+        //TODO - zapis wynikï¿½w
+        //TODO - zapis statystyk
 
-    	if(nextMove == MoveType.NONE)
-    	{
-			System.out.println("Stack pop");
-			System.out.println(puzzState.toString());
-			stack.pop();
-    		continue;
-    	}
-    	else
-    	{
-    		Puzzle next = new Puzzle(puzzState);
-			System.out.println(next.toString());	
-    		if(!next.move(nextMove))
-    		{
-				System.out.println("Stack nothing - continue");
-				System.out.println(next.toString());	
-				continue;
-    		}
-    		else
-    		{
-    			if(next.isGoalState())
-    			{
-    				System.out.println("Rozwi¹zane !");		
-    				System.out.println(next.toString());			
-    				break;
-    			}
-    			else
-    			{	
-    				//counter++;
-    				//if(counter>20){break;}
-    				if(this.addNotVisitedState(next))
-    				{
-        				System.out.println("Stack push new state");	
-        				System.out.println(next.toString());
-    					stack.push(next);
-    				}
-    				else
-    				{
-        				System.out.println("State already visited");	
-        				System.out.println(next.toString());
-    				}
-    			}
-    		}
-    	}
-    	
-    	if(stack.empty())
-    	{
-    		System.out.println("DFS: Stack empty. Nothing to do. ");
-    	}
-    	}    	
+        //to tests
+        int counter = 0;
+
+        Puzzle puzzState = new Puzzle(this.puzzle);
+        MoveType nextMove;
+
+        Stack<Puzzle> stack = new Stack<Puzzle>();
+        stack.push(puzzState);
+
+        while (!stack.empty()) {
+            puzzState = stack.peek();
+            nextMove = puzzState.getNextMoveDirection(searchOrder);
+            System.out.println(nextMove.toString());
+
+            if (nextMove == MoveType.NONE) {
+                System.out.println("Stack pop");
+                System.out.println(puzzState.toString());
+                stack.pop();
+                continue;
+            } else {
+                Puzzle next = new Puzzle(puzzState);
+                System.out.println(next.toString());
+                if (!next.move(nextMove)) {
+                    System.out.println("Stack nothing - continue");
+                    System.out.println(next.toString());
+                    continue;
+                } else {
+                    if (next.isGoalState()) {
+                        System.out.println("Rozwiï¿½zane !");
+                        System.out.println(next.toString());
+                        break;
+                    } else {
+                        //counter++;
+                        //if(counter>20){break;}
+                        if (this.addNotVisitedState(next)) {
+                            System.out.println("Stack push new state");
+                            System.out.println(next.toString());
+                            stack.push(next);
+                        } else {
+                            System.out.println("State already visited");
+                            System.out.println(next.toString());
+                        }
+                    }
+                }
+            }
+
+            if (stack.empty()) {
+                System.out.println("DFS: Stack empty. Nothing to do. ");
+            }
+        }
     }
-    
-    private boolean addNotVisitedState(Puzzle p)
-    {
-    	for(Puzzle item : this.visitedState)
-    	{
-    		if(item.equals(p))
-    		{
-    			return false;
-    		}
-    	}
-    	this.visitedState.add(p);
-    	return true;
+
+    private boolean addNotVisitedState(Puzzle p) {
+        for (Puzzle item : this.visitedState) {
+            if (item.equals(p)) {
+                return false;
+            }
+        }
+        this.visitedState.add(p);
+        return true;
     }
 }
