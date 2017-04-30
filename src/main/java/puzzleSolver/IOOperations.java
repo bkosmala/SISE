@@ -1,29 +1,23 @@
 package puzzleSolver;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class IOOperations {
 
     public static int[][] readFromFile(String url) {
-        File plik = new File(url);
+//        File plik = new File(url);
 
         System.out.println("Odczyt z pliku:");
-        String linia = "";
+        String line;
         ArrayList<String> input = new ArrayList<>();
-        try {
-            FileReader strumienOdczytu = new FileReader(plik);    // Konstrukcja i otwarcie strumienia odczytujacego
-            BufferedReader bufor = new BufferedReader(strumienOdczytu);
-            while ((linia = bufor.readLine()) != null) {
-                System.out.println(linia);
-                input.add(linia);
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(url))) {
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+                input.add(line);
             }
-            strumienOdczytu.close();
         } catch (FileNotFoundException io) {
             System.out.println(io.getMessage());
         } catch (IOException io) {
@@ -53,16 +47,12 @@ public class IOOperations {
     }
 
     public static void writeToFile(String url, String[] lines) {
-        File plik = new File(url);
 
-        try {
-            plik.createNewFile();
-            FileWriter strumienZapisu = new FileWriter(plik);
+        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(url))) {
             for (int i = 0; i < lines.length; i++) {
-                strumienZapisu.write(lines[i]);
-                strumienZapisu.write(System.lineSeparator());
+                writer.write(lines[i]);
+                writer.write(System.lineSeparator());
             }
-            strumienZapisu.close();
         } catch (IOException io) {
             System.out.println(io.getMessage());
         } catch (Exception se) {
