@@ -4,12 +4,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class IOOperations {
 	
-	public static int[][] wczytajZPliku(String url)
+	public static int[][] readFromFile(String url)
 	{
 		File plik = new File(url);
 
@@ -54,5 +55,25 @@ public class IOOperations {
 		
 		return result;
 	}
+	
+	public static void writeToFile(String url, String[] lines)
+	{
+		File plik = new File(url);
+		
+		try	{
+			plik.createNewFile();					
+			FileWriter strumienZapisu = new FileWriter(plik);
+			for(int i=0;i<lines.length;i++)
+			{
+			strumienZapisu.write(lines[i]);	
+			strumienZapisu.write(System.lineSeparator());
+			}
+			strumienZapisu.close(); 				
+		}
+		catch (IOException io)												
+		{System.out.println(io.getMessage());}
 
+		catch (Exception se)
+		{System.err.println("blad sec");}
+	}
 }

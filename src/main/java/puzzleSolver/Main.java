@@ -20,12 +20,12 @@ public class Main {
  	która nie mo¿e byæ mniejsza ni¿ 20 (wartoœæ tê mo¿na wpisaæ na sztywno do programu). 
  	W sytuacji, gdy program osi¹gnie tak¹ g³êbokoœæ nie znalaz³szy rozwi¹zania,
  	powinien wykonaæ nawrót." - co z tym? - zstosowaliœmy implementacjê ze stosem nie z rekurencj¹.
+ 2. Dostosowaæ problem do dzia³ania na niestandardowych ramkach (ró¿ne wymiary)
  
  ******************************************/
-        int parametersLength = 3;
+        int parametersLength = 5;
 
         if(args.length != parametersLength) {
-        	
             handleIncorrectInput("Niepoprawne parametry wykonania programu");
         }
         String acronimParam = args[1];
@@ -35,7 +35,7 @@ public class Main {
         Integer[][] puzzle = new Integer[4][4];
 
         // wczytywanie z pliku
-        int[][] input = IOOperations.wczytajZPliku(args[2]);
+        int[][] input = IOOperations.readFromFile(args[2]);
 
         SearchStrategy puzzleSolver = null;
         Puzzle.init(input);
@@ -55,6 +55,8 @@ public class Main {
         long startTime = System.currentTimeMillis();
         puzzleSolver.solvePuzzle();
         long endTime = System.currentTimeMillis();
+        String[] tabtest = {"6","KNKLIYJHJGFVB"};
+        IOOperations.writeToFile(args[3], tabtest);
 
     }
 
