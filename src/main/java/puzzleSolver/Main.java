@@ -55,8 +55,7 @@ public class Main {
         long startTime = System.currentTimeMillis();
         puzzleSolver.solvePuzzle();
         long endTime = System.currentTimeMillis();
-        String[] tabtest = {"6","KNKLIYJHJGFVB"};
-        IOOperations.writeToFile(args[3], tabtest);
+        IOOperations.writeToFile(args[3], puzzleSolver.getResults() );
 
     }
 

@@ -19,4 +19,11 @@ public class BsfSolver implements SearchStrategy {
     public void solvePuzzle() {
 
     }
+    
+    public String[] getResults()
+    {
+    	String[] result = {"-1"};
+    	
+    	return result;
+    }
 }

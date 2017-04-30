@@ -17,5 +17,10 @@ public enum MoveType {
         }
         throw new IllegalArgumentException("No constant with acronim " + moveType + "found");
     }
+    
+    public char getMoveType()
+    {
+    	return this.moveType;
+    }
 
 }

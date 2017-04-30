@@ -12,4 +12,10 @@ abstract class AstarSolver implements SearchStrategy {
     public AstarSolver(Integer[][] puzzle) {
         this.puzzle = puzzle;
     }
+    public String[] getResults()
+    {
+    	String[] result = {"-1"};
+    	
+    	return result;
+    }
 }

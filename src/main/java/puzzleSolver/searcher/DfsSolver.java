@@ -18,12 +18,16 @@ public class DfsSolver implements SearchStrategy {
     private int puzzle[][];
     
     ArrayList<Puzzle> visitedState;
-    private int solutionLength;
+    Stack<Puzzle> stack;
+    
+    private int solutionLength = -1;
+    private String path;
 
     public DfsSolver(MovingOrder searchOrder, int[][] puzzle) {
         this.searchOrder = searchOrder;
         this.puzzle = puzzle;
-        visitedState = new ArrayList<Puzzle>();
+        this.visitedState = new ArrayList<Puzzle>();
+        this.stack = new Stack<Puzzle>();
         System.out.println("");
         System.out.println(searchOrder.toString());
     }
@@ -42,12 +46,11 @@ public class DfsSolver implements SearchStrategy {
     	Puzzle puzzState = new Puzzle(this.puzzle);  	
     	MoveType nextMove;
     	
-    	Stack<Puzzle> stack = new Stack<Puzzle>();
-    	stack.push(puzzState);
+    	this.stack.push(puzzState);
     	
-    	while(!stack.empty())
+    	while(!this.stack.empty())
     	{
-    		puzzState = stack.peek();
+    		puzzState = this.stack.peek();
     		nextMove = puzzState.getNextMoveDirection(searchOrder);
 			System.out.println(nextMove.toString());
 
@@ -55,7 +58,7 @@ public class DfsSolver implements SearchStrategy {
     	{
 			System.out.println("Stack pop");
 			System.out.println(puzzState.toString());
-			stack.pop();
+			this.stack.pop();
     		continue;
     	}
     	else
@@ -73,7 +76,7 @@ public class DfsSolver implements SearchStrategy {
     			if(next.isGoalState())
     			{
     				System.out.println("Rozwi¹zane !");		
-    				System.out.println(next.toString());			
+    				System.out.println(next.toString());
     				break;
     			}
     			else
@@ -84,7 +87,7 @@ public class DfsSolver implements SearchStrategy {
     				{
         				System.out.println("Stack push new state");	
         				System.out.println(next.toString());
-    					stack.push(next);
+        				this.stack.push(next);
     				}
     				else
     				{
@@ -95,7 +98,7 @@ public class DfsSolver implements SearchStrategy {
     		}
     	}
     	
-    	if(stack.empty())
+    	if(this.stack.empty())
     	{
     		System.out.println("DFS: Stack empty. Nothing to do. ");
     	}
@@ -113,5 +116,34 @@ public class DfsSolver implements SearchStrategy {
     	}
     	this.visitedState.add(p);
     	return true;
+    }
+    
+    public String[] getResults()
+    {
+    	String[] result = {"-1"};
+    	
+    	this.solutionLength = this.stack.size();
+    	this.path = "";
+    	Puzzle p;
+    	if(!this.stack.empty())
+    	{
+    		for(int i = 0; i<this.stack.size();i++)
+    		{
+    			p = this.stack.elementAt(i);
+    			if(p.getLastMove() != MoveType.NONE )
+    			{
+    			this.path += p.getLastMove().getMoveType();
+    			}
+    		}
+    	}
+    	
+    	if(this.solutionLength > -1)
+    	{
+    		result = new String[2];
+    		result[0] = Integer.toString(this.solutionLength);
+    		result[1] = this.path;
+    	}
+    	
+    	return result;
     }
 }

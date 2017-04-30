@@ -5,4 +5,5 @@ package puzzleSolver.searcher;
  */
 public interface SearchStrategy {
     void solvePuzzle();
+    String[] getResults();
 }
