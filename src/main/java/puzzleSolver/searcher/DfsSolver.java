@@ -16,7 +16,7 @@ public class DfsSolver implements SearchStrategy {
 
     private MovingOrder searchOrder;
     private int puzzle[][];
-    
+
     ArrayList<Puzzle> visitedState;
     Stack<Puzzle> stack;
     
@@ -104,18 +104,15 @@ public class DfsSolver implements SearchStrategy {
     	}
     	}    	
     }
-    
-    private boolean addNotVisitedState(Puzzle p)
-    {
-    	for(Puzzle item : this.visitedState)
-    	{
-    		if(item.equals(p))
-    		{
-    			return false;
-    		}
-    	}
-    	this.visitedState.add(p);
-    	return true;
+
+    private boolean addNotVisitedState(Puzzle p) {
+        for (Puzzle item : this.visitedState) {
+            if (item.equals(p)) {
+                return false;
+            }
+        }
+        this.visitedState.add(p);
+        return true;
     }
     
     public String[] getResults()
