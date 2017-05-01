@@ -40,6 +40,7 @@ public class DfsSolver implements SearchStrategy {
         if (puzzleState.isGoalState()) {
             System.out.println(puzzleState);
             goal = puzzleState;
+            System.out.println(goal.getPath());
         }
         if (goal != null) {
             return;
@@ -57,6 +58,7 @@ public class DfsSolver implements SearchStrategy {
     }
 
     private void removeDuplicates() {
+        // to moze byc czasochlonne, ale co tam
         nextNodes = nextNodes.stream().filter(p -> !visitedStates.contains(p)).collect(Collectors.toList());
     }
 }

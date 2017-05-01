@@ -23,11 +23,13 @@ public class Puzzle {
 
     private short zeroColumn;
     private short zeroRow;
+    private String path;        //zapisywanie kolejnych ruchów
 
     public Puzzle(int[][] puzzle, int width, int height) {
         dimension = width;
         puzzleArray = puzzle;
         setZerPosition();
+        path = "";
     }
 
     public Puzzle(Puzzle original) {
@@ -38,6 +40,7 @@ public class Puzzle {
         }
         zeroRow = original.zeroRow;
         zeroColumn = original.zeroColumn;
+        path = original.path;
     }
 
     public Optional<Puzzle> moveLeft() {
@@ -52,6 +55,7 @@ public class Puzzle {
         newPuzzle.puzzleArray[zeroRow][zeroColumn] = temp;
 
         newPuzzle.zeroColumn -= 1;
+        newPuzzle.path += 'l';
 
         return Optional.of(newPuzzle);
     }
@@ -68,6 +72,7 @@ public class Puzzle {
         newPuzzle.puzzleArray[zeroRow][zeroColumn] = temp;
 
         newPuzzle.zeroColumn += 1;
+        newPuzzle.path += 'r';
 
         return Optional.of(newPuzzle);
     }
@@ -84,6 +89,7 @@ public class Puzzle {
         newPuzzle.puzzleArray[zeroRow][zeroColumn] = temp;
 
         newPuzzle.zeroRow -= 1;
+        newPuzzle.path += 'u';
 
         return Optional.of(newPuzzle);
     }
@@ -100,6 +106,7 @@ public class Puzzle {
         newPuzzle.puzzleArray[zeroRow][zeroColumn] = temp;
 
         newPuzzle.zeroRow += 1;
+        newPuzzle.path += 'd';
 
         return Optional.of(newPuzzle);
     }
@@ -159,6 +166,14 @@ public class Puzzle {
                 }
             }
         }
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     @Override
