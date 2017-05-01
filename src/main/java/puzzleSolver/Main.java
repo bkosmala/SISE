@@ -13,22 +13,23 @@ import puzzleSolver.util.StatisticUtil;
  * Created by maciek on 25.04.17.
  */
 public class Main {
+    private final static int PARAM_LENGTH = 5;
 
     public static void main(String[] args) {
 
-        int parametersLength = 3;
-
-        if(args.length != parametersLength) {
-        	
+        if(args.length != PARAM_LENGTH) {
             handleIncorrectInput("Niepoprawne parametry wykonania programu");
         }
         String acronimParam = args[1];
+        String inputFilePath = args[2];
+        String outputSolutionPath = args[3];
+        String outputStatsPath = args[4];
 
         //TODO do zmiany po zrobieniu wczytywania wygenerowanej ukladanki
         Integer[][] puzzle = new Integer[4][4];
 
         // wczytywanie z pliku
-        int[][] input = IOOperations.readFromFile(args[2]);
+        int[][] input = IOOperations.readFromFile(inputFilePath);
         Puzzle puzzleToSolve = new Puzzle(input, input[0].length, input.length);
 
         SearchStrategy puzzleSolver = null;
@@ -46,19 +47,27 @@ public class Main {
         System.out.println("Hello world!");
 
         puzzleSolver.solvePuzzle(puzzleToSolve);
-        StatisticUtil.generateBasicReport("basicReport.txt");
-        StatisticUtil.generateAdditionalStatisticsFile("ExtendedReport.txt");
-        System.out.println("Ilosc ruchow " + Solver.getMovesCount());
-        System.out.println("Ciag przesuniec: " + Solver.getMOVES());
-        System.out.println("Czas: " + Solver.getTimeToSolve());
-        System.out.println("maks głebokosc " + Solver.getMaxDepth());
-        System.out.println("przetworzone " + Solver.getComputedStates());
-        System.out.println("odwiedzone " + Solver.getVisitedStates());
+
+        // generowanie plikow ze statystykami
+        StatisticUtil.generateBasicReport(outputSolutionPath);
+        StatisticUtil.generateAdditionalStatisticsFile(outputStatsPath);
+
+        // drukowanie na konsole - todo Usunac jak nie potrzeba
+        printInfo();
 
     }
 
     private static void handleIncorrectInput(String msg) {
         System.err.println(msg);
         System.exit(-1);
+    }
+
+    private static void printInfo() {
+        System.out.println("Ilosc ruchow " + Solver.getMovesCount());
+        System.out.println("Ciag przesuniec: " + Solver.getMOVES());
+        System.out.println("Czas: " + Solver.getTimeToSolve());
+        System.out.println("maks głebokosc " + Solver.getMaxDepth());
+        System.out.println("przetworzone " + Solver.getComputedStates());
+        System.out.println("odwiedzone " + Solver.getVisitedStates());
     }
 }

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  */
 public class DfsSolver extends Solver {
 
-    private static final int MAX_RECURSION_DEPTH = 7;
+    private static final int MAX_RECURSION_DEPTH = 20;
 
     private String searchOrder;
     private int puzzle[][];
