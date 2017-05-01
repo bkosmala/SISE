@@ -26,13 +26,14 @@ public class Main {
 
         // wczytywanie z pliku
         int[][] input = IOOperations.wczytajZPliku(args[2]);
+        Puzzle puzzleToSolve = new Puzzle(input, input[0].length, input.length);
 
         SearchStrategy puzzleSolver = null;
 
         if (args[0].equals("bfs")) {
             puzzleSolver = new BfsSolver();
         } else if (args[0].equals("dfs")) {
-            puzzleSolver = new DfsSolver("",input);
+            puzzleSolver = new DfsSolver(acronimParam,input);
         } else if (args[0].equals("astr")) {
             puzzleSolver = AstarSolverFactory.createAstarSolver(HeuristicType.fromAcronim(acronimParam), puzzle);
         } else {
@@ -42,7 +43,7 @@ public class Main {
         System.out.println("Hello world!");
 
         long startTime = System.currentTimeMillis();
-//        puzzleSolver.solvePuzzle();
+        puzzleSolver.solvePuzzle(puzzleToSolve);
         long endTime = System.currentTimeMillis();
 
     }

@@ -24,6 +24,12 @@ public class Puzzle {
     private short zeroColumn;
     private short zeroRow;
 
+    public Puzzle(int[][] puzzle, int width, int height) {
+        dimension = width;
+        puzzleArray = puzzle;
+        setZerPosition();
+    }
+
     public Puzzle(Puzzle original) {
         dimension = original.dimension;
         puzzleArray = new int[dimension][dimension];
@@ -45,7 +51,7 @@ public class Puzzle {
         newPuzzle.puzzleArray[zeroRow][zeroColumn - 1] = 0;
         newPuzzle.puzzleArray[zeroRow][zeroColumn] = temp;
 
-        newPuzzle.zeroColumn -= -1;
+        newPuzzle.zeroColumn -= 1;
 
         return Optional.of(newPuzzle);
     }
@@ -61,7 +67,7 @@ public class Puzzle {
         newPuzzle.puzzleArray[zeroRow][zeroColumn + 1] = 0;
         newPuzzle.puzzleArray[zeroRow][zeroColumn] = temp;
 
-        zeroColumn += 1;
+        newPuzzle.zeroColumn += 1;
 
         return Optional.of(newPuzzle);
     }
@@ -142,6 +148,17 @@ public class Puzzle {
 
     public boolean isGoalState() {
         return Arrays.deepEquals(puzzleArray, goalState);
+    }
+
+    private void setZerPosition() {
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
+                if (puzzleArray[i][j] == 0) {
+                    zeroColumn = (short) j;
+                    zeroRow = (short) i;
+                }
+            }
+        }
     }
 
     @Override
