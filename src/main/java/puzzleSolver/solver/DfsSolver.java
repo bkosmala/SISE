@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  */
 public class DfsSolver extends Solver {
 
-    private static final int MAX_RECURSION_DEPTH = 20;
+    private static final int MAX_RECURSION_DEPTH = 7;
 
     private String searchOrder;
     private int puzzle[][];
@@ -36,6 +36,7 @@ public class DfsSolver extends Solver {
         dfs(unsolved, MAX_RECURSION_DEPTH);
         long endTime = System.currentTimeMillis();
         TIME_TO_SOLVE = endTime - startTime;
+        VISITED_STATES = visitedStates.size();
     }
 
     private void dfs(Puzzle puzzleState, int depth) {
@@ -51,7 +52,6 @@ public class DfsSolver extends Solver {
             System.out.println(goal.getPath());
             MOVES = goal.getPath();
             MOVES_COUNT = MOVES.length();
-            VISITED_STATES = visitedStates.size();
         }
         if (goal != null) {
             return;
