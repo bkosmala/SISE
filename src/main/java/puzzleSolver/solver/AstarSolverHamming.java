@@ -1,13 +1,13 @@
-package puzzleSolver.searcher.astar;
+package puzzleSolver.solver;
 
 import puzzleSolver.Puzzle;
 
 /**
  * Created by maciek on 26.04.17.
  */
-public class AstarSolverManhattan extends AstarSolver {
+public class AstarSolverHamming extends AstarSolver {
 
-    public AstarSolverManhattan(Integer[][] puzzle) {
+    public AstarSolverHamming(Integer[][] puzzle) {
         super(puzzle);
     }
 

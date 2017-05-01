@@ -1,6 +1,4 @@
-package puzzleSolver.searcher.astar;
-
-import puzzleSolver.searcher.SearchStrategy;
+package puzzleSolver.solver;
 
 /**
  * Created by maciek on 25.04.17.

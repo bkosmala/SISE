@@ -1,4 +1,4 @@
-package puzzleSolver.searcher;
+package puzzleSolver.solver;
 
 import puzzleSolver.Puzzle;
 

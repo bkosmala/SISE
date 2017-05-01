@@ -1,4 +1,4 @@
-package puzzleSolver.searcher.astar;
+package puzzleSolver.solver;
 
 /**
  * Created by maciek on 25.04.17.

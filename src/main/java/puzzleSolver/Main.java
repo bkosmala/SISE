@@ -1,10 +1,13 @@
 package puzzleSolver;
 
-import puzzleSolver.searcher.BfsSolver;
-import puzzleSolver.searcher.DfsSolver;
-import puzzleSolver.searcher.SearchStrategy;
-import puzzleSolver.searcher.astar.AstarSolverFactory;
-import puzzleSolver.searcher.astar.HeuristicType;
+import puzzleSolver.solver.BfsSolver;
+import puzzleSolver.solver.DfsSolver;
+import puzzleSolver.solver.SearchStrategy;
+import puzzleSolver.solver.Solver;
+import puzzleSolver.solver.AstarSolverFactory;
+import puzzleSolver.solver.HeuristicType;
+import puzzleSolver.util.IOOperations;
+import puzzleSolver.util.StatisticUtil;
 
 /**
  * Created by maciek on 25.04.17.
@@ -25,7 +28,7 @@ public class Main {
         Integer[][] puzzle = new Integer[4][4];
 
         // wczytywanie z pliku
-        int[][] input = IOOperations.wczytajZPliku(args[2]);
+        int[][] input = IOOperations.readFromFile(args[2]);
         Puzzle puzzleToSolve = new Puzzle(input, input[0].length, input.length);
 
         SearchStrategy puzzleSolver = null;
@@ -42,14 +45,20 @@ public class Main {
 
         System.out.println("Hello world!");
 
-        long startTime = System.currentTimeMillis();
         puzzleSolver.solvePuzzle(puzzleToSolve);
-        long endTime = System.currentTimeMillis();
+        StatisticUtil.generateBasicReport("basicReport.txt");
+        StatisticUtil.generateAdditionalStatisticsFile("ExtendedReport.txt");
+        System.out.println("Ilosc ruchow " + Solver.getMovesCount());
+        System.out.println("Ciag przesuniec: " + Solver.getMOVES());
+        System.out.println("Czas: " + Solver.getTimeToSolve());
+        System.out.println("maks głebokosc " + Solver.getMaxDepth());
+        System.out.println("przetworzone " + Solver.getComputedStates());
+        System.out.println("odwiedzone " + Solver.getVisitedStates());
 
     }
 
     private static void handleIncorrectInput(String msg) {
-        System.out.println(msg);
+        System.err.println(msg);
         System.exit(-1);
     }
 }

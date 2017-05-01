@@ -1,4 +1,4 @@
-package puzzleSolver.searcher;
+package puzzleSolver.solver;
 
 import puzzleSolver.Puzzle;
 
@@ -11,7 +11,9 @@ import java.util.stream.Collectors;
 /**
  * Created by maciek on 25.04.17.
  */
-public class DfsSolver implements SearchStrategy {
+public class DfsSolver extends Solver {
+
+    private static final int MAX_RECURSION_DEPTH = 20;
 
     private String searchOrder;
     private int puzzle[][];
@@ -30,22 +32,31 @@ public class DfsSolver implements SearchStrategy {
     }
 
     public void solvePuzzle(Puzzle unsolved) {
-        dfs(unsolved, 10);
+        long startTime = System.currentTimeMillis();
+        dfs(unsolved, MAX_RECURSION_DEPTH);
+        long endTime = System.currentTimeMillis();
+        TIME_TO_SOLVE = endTime - startTime;
     }
 
     private void dfs(Puzzle puzzleState, int depth) {
         if (depth < 0) {
             return;
         }
+        if (MAX_DEPTH < MAX_RECURSION_DEPTH - depth) {
+            MAX_DEPTH = MAX_RECURSION_DEPTH - depth;
+        }
         if (puzzleState.isGoalState()) {
             System.out.println(puzzleState);
             goal = puzzleState;
             System.out.println(goal.getPath());
+            MOVES = goal.getPath();
+            MOVES_COUNT = MOVES.length();
+            VISITED_STATES = visitedStates.size();
         }
         if (goal != null) {
             return;
         }
-
+        COMPUTED_STATES += 1;
         nextNodes = puzzleState.getAncestors(searchOrder);
         removeDuplicates();     // nie odwiedzamy odwiedzonych stanow
         for (Puzzle state : nextNodes) {

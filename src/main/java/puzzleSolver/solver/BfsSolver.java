@@ -1,4 +1,4 @@
-package puzzleSolver.searcher;
+package puzzleSolver.solver;
 
 import puzzleSolver.Puzzle;
 
@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Created by maciek on 25.04.17.
  */
-public class BfsSolver implements SearchStrategy {
+public class BfsSolver extends Solver {
 
     private String searchOrder;
 //    private Integer[][] puzzle;
