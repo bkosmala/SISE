@@ -1,8 +1,10 @@
 package puzzleSolver.searcher;
 
+import puzzleSolver.Puzzle;
+
 /**
  * Created by maciek on 25.04.17.
  */
 public interface SearchStrategy {
-    void solvePuzzle();
+    void solvePuzzle(Puzzle unsolved);
 }

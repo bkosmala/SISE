@@ -42,7 +42,7 @@ public class Main {
         System.out.println("Hello world!");
 
         long startTime = System.currentTimeMillis();
-        puzzleSolver.solvePuzzle();
+//        puzzleSolver.solvePuzzle();
         long endTime = System.currentTimeMillis();
 
     }

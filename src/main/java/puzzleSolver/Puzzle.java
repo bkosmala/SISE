@@ -2,9 +2,12 @@ package puzzleSolver;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import javax.swing.text.html.Option;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 /**
  * Created by maciek on 26.04.17.
@@ -27,49 +30,56 @@ public class Puzzle {
         for (int i = 0; i < dimension; i++) {
             puzzleArray[i] = ArrayUtils.clone(original.puzzleArray[i]);
         }
+        zeroRow = original.zeroRow;
+        zeroColumn = original.zeroColumn;
     }
 
-    public boolean moveLeft() {
+    public Optional<Puzzle> moveLeft() {
 
         if (!canMoveLeft()) {
-            return false;
+            return Optional.empty();
         }
+        Puzzle newPuzzle = new Puzzle(this);
 
-        int temp = puzzleArray[zeroRow][zeroColumn - 1];
-        puzzleArray[zeroRow][zeroColumn - 1] = 0;
-        puzzleArray[zeroRow][zeroColumn] = temp;
+        int temp = newPuzzle.puzzleArray[zeroRow][zeroColumn - 1];
+        newPuzzle.puzzleArray[zeroRow][zeroColumn - 1] = 0;
+        newPuzzle.puzzleArray[zeroRow][zeroColumn] = temp;
 
-        zeroColumn -= zeroColumn;
+        newPuzzle.zeroColumn -= -1;
 
-        return true;
+        return Optional.of(newPuzzle);
     }
 
-    public boolean moveRight() {
+    public Optional<Puzzle> moveRight() {
 
         if (!canMoveRight()) {
-            return false;
+            return Optional.empty();
         }
-        int temp = puzzleArray[zeroRow][zeroColumn + 1];
-        puzzleArray[zeroRow][zeroColumn + 1] = 0;
-        puzzleArray[zeroRow][zeroColumn] = temp;
+        Puzzle newPuzzle = new Puzzle(this);
+
+        int temp = newPuzzle.puzzleArray[zeroRow][zeroColumn + 1];
+        newPuzzle.puzzleArray[zeroRow][zeroColumn + 1] = 0;
+        newPuzzle.puzzleArray[zeroRow][zeroColumn] = temp;
 
         zeroColumn += 1;
 
-        return true;
+        return Optional.of(newPuzzle);
     }
 
-    public boolean moveUp() {
+    public Optional<Puzzle> moveUp() {
 
         if (!canMoveUp()) {
-            return false;
+            return Optional.empty();
         }
-        int temp = puzzleArray[zeroRow - 1][zeroColumn];
-        puzzleArray[zeroRow - 1][zeroColumn] = 0;
-        puzzleArray[zeroRow][zeroColumn] = temp;
+        Puzzle newPuzzle = new Puzzle(this);
 
-        zeroRow -= 1;
+        int temp = newPuzzle.puzzleArray[zeroRow - 1][zeroColumn];
+        newPuzzle.puzzleArray[zeroRow - 1][zeroColumn] = 0;
+        newPuzzle.puzzleArray[zeroRow][zeroColumn] = temp;
 
-        return true;
+        newPuzzle.zeroRow -= 1;
+
+        return Optional.of(newPuzzle);
     }
 
     public Optional<Puzzle> moveDown() {
@@ -88,6 +98,25 @@ public class Puzzle {
         return Optional.of(newPuzzle);
     }
 
+    private Optional<Puzzle> move(char direction) {
+        switch (direction) {
+            case 'r':
+            case 'R':
+                return moveRight();
+            case 'l':
+            case 'L':
+                return  moveLeft();
+            case 'u':
+            case 'U':
+                return moveUp();
+            case 'd':
+            case 'D':
+                return moveDown();
+            default:
+                return Optional.empty();
+        }
+    }
+
     public boolean canMoveDown() {
         return zeroRow < dimension - 1;
     }
@@ -104,9 +133,14 @@ public class Puzzle {
         return zeroColumn > 0;
     }
 
+    public List<Puzzle> getAncestors(String searchOrder) {
+        List<Puzzle> newStates = new ArrayList<>();
+        IntStream.range(0, 4).forEach(i -> move(searchOrder.charAt(i)).ifPresent(newStates::add));
+        return newStates;
+    }
+
 
     public boolean isGoalState() {
-        // todo nie testowane
         return Arrays.deepEquals(puzzleArray, goalState);
     }
 
@@ -155,9 +189,5 @@ public class Puzzle {
     @Override
     public int hashCode() {
         return toString().hashCode();
-    }
-
-    public List<Puzzle> getAncestors(String searchOrder) {
-        if (canMoveX(searchOrder.charAt(0)))
     }
 }
