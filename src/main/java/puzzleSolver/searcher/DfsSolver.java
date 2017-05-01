@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by maciek on 25.04.17.
@@ -45,6 +46,7 @@ public class DfsSolver implements SearchStrategy {
         }
 
         nextNodes = puzzleState.getAncestors(searchOrder);
+        removeDuplicates();     // nie odwiedzamy odwiedzonych stanow
         for (Puzzle state : nextNodes) {
             visitedStates.add(state);
             dfs(state, depth - 1);
@@ -52,5 +54,9 @@ public class DfsSolver implements SearchStrategy {
                 return;
             }
         }
+    }
+
+    private void removeDuplicates() {
+        nextNodes = nextNodes.stream().filter(p -> !visitedStates.contains(p)).collect(Collectors.toList());
     }
 }
