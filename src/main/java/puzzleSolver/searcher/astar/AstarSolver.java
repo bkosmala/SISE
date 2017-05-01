@@ -18,4 +18,10 @@ abstract class AstarSolver implements SearchStrategy {
     	
     	return result;
     }
+    public String[] getStatistics()
+    {
+    	
+    	String[] result = new String[5];
+    	return result;
+    }
 }

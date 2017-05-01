@@ -56,6 +56,7 @@ public class Main {
         puzzleSolver.solvePuzzle();
         long endTime = System.currentTimeMillis();
         IOOperations.writeToFile(args[3], puzzleSolver.getResults() );
+        IOOperations.writeToFile(args[4], puzzleSolver.getStatistics() );
 
     }
 
@@ -63,4 +64,6 @@ public class Main {
         System.out.println(msg);
         System.exit(-1);
     }
+    
+    
 }
