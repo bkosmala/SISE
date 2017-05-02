@@ -35,6 +35,7 @@ public class BfsSolver extends Solver {
         long endTime = System.currentTimeMillis();
         TIME_TO_SOLVE = endTime - startTime;
         VISITED_STATES = visitedStates.size();
+        MAX_DEPTH = MOVES_COUNT;            // nie wiem jak inaczej to zapisać ;)
     }
 
     private void bfs(Puzzle puzzleState, int maxDepth) {
@@ -43,7 +44,6 @@ public class BfsSolver extends Solver {
         visitedStates.add(puzzleState);
         unvisitedStates.add(puzzleState);
         List<Puzzle> possibleMoves;
-        int depthCounter = 0;
 
         while (!unvisitedStates.isEmpty()) {
             puzzleState = unvisitedStates.poll();
