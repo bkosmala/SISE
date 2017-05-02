@@ -178,7 +178,7 @@ public class Puzzle {
                 if (goalState[i][j] == value) {
                     coords[0] = i;
                     coords[1] = j;
-                    return coords
+                    return coords;
                 }
             }
         }
