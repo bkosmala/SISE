@@ -11,4 +11,9 @@ public class Hamming implements Heuristic {
     public int compare(Puzzle o1, Puzzle o2) {
         return 0;
     }
+
+    @Override
+    public int calculateHeuristic(Puzzle puzzle) {
+        return 0;
+    }
 }

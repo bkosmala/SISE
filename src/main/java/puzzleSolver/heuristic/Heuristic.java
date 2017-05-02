@@ -9,6 +9,9 @@ import java.util.Comparator;
  */
 public interface Heuristic extends Comparator<Puzzle> {
 
+    int calculateHeuristic(Puzzle puzzle);
     @Override
     int compare(Puzzle o1, Puzzle o2);
+
+
 }

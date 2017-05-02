@@ -1,6 +1,7 @@
 package puzzleSolver;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.tuple.Pair;
 
 import javax.swing.text.html.Option;
 import java.util.ArrayList;
@@ -152,6 +153,41 @@ public class Puzzle {
         return newStates;
     }
 
+    public int[][] getPuzzleArray() {
+        return puzzleArray;
+    }
+
+    public int[] getCoordsOfValue(int value) {
+        int[] coords = new int[2];
+        for (int i = 0; i < puzzleArray.length; i++) {
+            for (int j = 0; j < puzzleArray[0].length; j++) {
+                if (puzzleArray[i][j] == value) {
+                    coords[0] = i;
+                    coords[1] = j;
+                    return coords;
+                }
+            }
+        }
+        return coords;
+    }
+
+    public int[] getExpectedCoordsOfValue(int value) {
+        int[] coords = new int[2];
+        for (int i = 0; i < goalState.length; i++) {
+            for (int j = 0; j < goalState[0].length; j++) {
+                if (goalState[i][j] == value) {
+                    coords[0] = i;
+                    coords[1] = j;
+                    return coords
+                }
+            }
+        }
+        return coords;
+    }
+
+    public static int[][] getGoalState() {
+        return goalState;
+    }
 
     public boolean isGoalState() {
         return Arrays.deepEquals(puzzleArray, goalState);
