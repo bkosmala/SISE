@@ -1,4 +1,4 @@
-package puzzleSolver.solver;
+package puzzleSolver.heuristic;
 
 /**
  * Created by maciek on 25.04.17.

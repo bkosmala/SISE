@@ -1,6 +1,10 @@
 
 # Created by https://www.gitignore.io/api/c++,java,eclipse,netbeans,intellij,codeblocks
 
+ExtendedReport.txt
+basicReport.txt
+extendedReport.txt
+
 ### C++ ###
 # Prerequisites
 *.d

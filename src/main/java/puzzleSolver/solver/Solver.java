@@ -7,6 +7,8 @@ import java.util.List;
  * Created by maciek on 01.05.17.
  */
 public abstract class Solver implements SearchStrategy {
+
+    // do statystyk
     protected static String MOVES;            // ciąg kolejnych ruchów
     protected static int MOVES_COUNT = -1;         // ilość ruchów do rozwiązania
     protected static int VISITED_STATES;      // liczba stanów odwiedzonych

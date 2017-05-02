@@ -5,7 +5,7 @@ import puzzleSolver.solver.DfsSolver;
 import puzzleSolver.solver.SearchStrategy;
 import puzzleSolver.solver.Solver;
 import puzzleSolver.solver.AstarSolverFactory;
-import puzzleSolver.solver.HeuristicType;
+import puzzleSolver.heuristic.HeuristicType;
 import puzzleSolver.util.IOOperations;
 import puzzleSolver.util.StatisticUtil;
 
