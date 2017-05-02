@@ -15,6 +15,7 @@ public class Manhattan implements Heuristic {
     @Override
     public int calculateHeuristic(Puzzle puzzle) {
         int result = 0;
+        // ukladanka ma wartosci od 0 do n
         int value = 1;          // zero pomijamy
         int[][] state = puzzle.getPuzzleArray();
         for (int i = 0; i < state.length; i++) {
