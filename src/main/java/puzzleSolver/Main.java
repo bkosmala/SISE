@@ -35,7 +35,7 @@ public class Main {
         SearchStrategy puzzleSolver = null;
 
         if (args[0].equals("bfs")) {
-            puzzleSolver = new BfsSolver();
+            puzzleSolver = new BfsSolver(acronimParam);
         } else if (args[0].equals("dfs")) {
             puzzleSolver = new DfsSolver(acronimParam,input);
         } else if (args[0].equals("astr")) {
@@ -48,7 +48,7 @@ public class Main {
 
         puzzleSolver.solvePuzzle(puzzleToSolve);
 
-        // generowanie plikow ze statystykami
+//         generowanie plikow ze statystykami
         StatisticUtil.generateBasicReport(outputSolutionPath);
         StatisticUtil.generateAdditionalStatisticsFile(outputStatsPath);
 

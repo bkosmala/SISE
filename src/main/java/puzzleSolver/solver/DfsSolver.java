@@ -23,8 +23,6 @@ public class DfsSolver extends Solver {
 
     //temp
     private Puzzle goal;
-    
-    private int solutionLength;
 
     public DfsSolver(String searchOrder, int[][] puzzle) {
         this.searchOrder = searchOrder;
