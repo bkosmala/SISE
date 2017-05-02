@@ -147,9 +147,18 @@ public class Puzzle {
         return zeroColumn > 0;
     }
 
-    public List<Puzzle> getAncestors(String searchOrder) {
+    public List<Puzzle> getNeighbours(String searchOrder) {
         List<Puzzle> newStates = new ArrayList<>();
         IntStream.range(0, 4).forEach(i -> move(searchOrder.charAt(i)).ifPresent(newStates::add));
+        return newStates;
+    }
+
+    public List<Puzzle> getNeighbours() {
+        List<Puzzle> newStates = new ArrayList<>();
+        moveLeft().ifPresent(newStates::add);
+        moveUp().ifPresent(newStates::add);
+        moveRight().ifPresent(newStates::add);
+        moveDown().ifPresent(newStates::add);
         return newStates;
     }
 

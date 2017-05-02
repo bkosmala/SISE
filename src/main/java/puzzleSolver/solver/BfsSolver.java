@@ -36,6 +36,8 @@ public class BfsSolver extends Solver {
         TIME_TO_SOLVE = endTime - startTime;
         VISITED_STATES = visitedStates.size();
         MAX_DEPTH = MOVES_COUNT;            // nie wiem jak inaczej to zapisać ;)
+        MOVES = goal.getPath();
+        MOVES_COUNT = MOVES.length();
     }
 
     private void bfs(Puzzle puzzleState, int maxDepth) {
@@ -51,12 +53,10 @@ public class BfsSolver extends Solver {
             if (puzzleState.isGoalState()) {
                 goal = puzzleState;
                 System.out.println(goal);
-                MOVES = goal.getPath();
-                MOVES_COUNT = MOVES.length();
                 break;
             }
             if (puzzleState.getPath().length() <= maxDepth) {
-                possibleMoves = puzzleState.getAncestors(searchOrder);
+                possibleMoves = puzzleState.getNeighbours(searchOrder);
                 unvisitedStates.addAll(removeDuplicates(possibleMoves));
                 visitedStates.addAll(unvisitedStates);
             }

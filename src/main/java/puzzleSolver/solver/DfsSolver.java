@@ -35,6 +35,8 @@ public class DfsSolver extends Solver {
         long endTime = System.currentTimeMillis();
         TIME_TO_SOLVE = endTime - startTime;
         VISITED_STATES = visitedStates.size();
+        MOVES = goal.getPath();
+        MOVES_COUNT = MOVES.length();
     }
 
     private void dfs(Puzzle puzzleState, int depth) {
@@ -48,14 +50,12 @@ public class DfsSolver extends Solver {
             System.out.println(puzzleState);
             goal = puzzleState;
             System.out.println(goal.getPath());
-            MOVES = goal.getPath();
-            MOVES_COUNT = MOVES.length();
         }
         if (goal != null) {
             return;
         }
         COMPUTED_STATES += 1;
-        nextNodes = puzzleState.getAncestors(searchOrder);
+        nextNodes = puzzleState.getNeighbours(searchOrder);
         removeDuplicates();     // nie odwiedzamy odwiedzonych stanow
         for (Puzzle state : nextNodes) {
             visitedStates.add(state);
@@ -67,7 +67,7 @@ public class DfsSolver extends Solver {
     }
 
     private void removeDuplicates() {
-        // to moze byc czasochlonne, ale co tam
+        // to moze byc czasochlonne, ale co tam todo sprawdzic czy nie lepiej trzymac parent w Puzzle
         nextNodes = nextNodes.stream().filter(p -> !visitedStates.contains(p)).collect(Collectors.toList());
     }
 }
