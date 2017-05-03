@@ -16,7 +16,7 @@ public class AstarSolver extends HeuristicSolver {
     private Integer[][] puzzle;
 
     private Set<Puzzle> visitedStates = new HashSet<>();
-    private Queue<Puzzle> unvisitedStates = new LinkedList<>();
+    private Queue<Puzzle> unvisitedStates = new PriorityQueue<>(heuristic);
 
     public AstarSolver(Integer[][] puzzle, Heuristic heuristic) {
         super(heuristic);
@@ -39,11 +39,12 @@ public class AstarSolver extends HeuristicSolver {
         visitedStates.clear();
         unvisitedStates.clear();
         unvisitedStates.add(puzzle);
-        Queue<Puzzle> newStates = new PriorityQueue<>(heuristic);
+//        Queue<Puzzle> newStates = new PriorityQueue<>(heuristic);
         Puzzle currentState;
 
         while (!unvisitedStates.isEmpty()) {
             currentState = unvisitedStates.poll();
+//            System.out.println(currentState);
             COMPUTED_STATES += 1;
             if (currentState.isGoalState()) {
                 goal = currentState;
@@ -51,13 +52,13 @@ public class AstarSolver extends HeuristicSolver {
                 break;
             }
             visitedStates.add(currentState);
-            newStates.clear();
-            newStates.addAll(currentState.getNeighbours());
-            unvisitedStates.addAll(removeDuplicates(newStates));
+//            newStates.clear();
+//            newStates.addAll(currentState.getNeighbours());
+            unvisitedStates.addAll(removeDuplicates(currentState.getNeighbours()));
         }
     }
 
-    private List<Puzzle> removeDuplicates(Queue<Puzzle> possibleMoves) {
+    private List<Puzzle> removeDuplicates(List<Puzzle> possibleMoves) {
         return possibleMoves.stream().filter(p -> !visitedStates.contains(p)).collect(Collectors.toList());
     }
 }

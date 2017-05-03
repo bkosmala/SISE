@@ -17,12 +17,16 @@ public class Hamming implements Heuristic {
         int result = 0;
         int value = 1;
         int[][] state = puzzle.getPuzzleArray();
+        int[] coords;
+        int[] expectedCoords;
         for (int i = 0; i < state.length; i++) {
             for (int j = 0; j < state[0].length; j++) {
                 if (i == state.length - 1 && j == state[0].length - 1) {
                     break;
                 }
-                if (puzzle.getCoordsOfValue(value) != puzzle.getExpectedCoordsOfValue(value)) {
+                coords = puzzle.getCoordsOfValue(value);
+                expectedCoords = puzzle.getExpectedCoordsOfValue(value);
+                if (coords[0] != expectedCoords[0] || coords[1] != expectedCoords[1]) {
                     result += 1;
                 }
                 value++;
