@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
  */
 public class BfsSolver extends Solver {
 
+    // nie ma takiego wymagania, ale mimo to ograniczamy, zeby kiedys zakonczyc poszukiwanie
     private static final int MAX_RECURSION_DEPTH = 20;
 
     private String searchOrder;
@@ -63,8 +64,4 @@ public class BfsSolver extends Solver {
         return possibleMoves.stream().filter(p -> !visitedStates.contains(p)).collect(Collectors.toList());
     }
 
-    private void visitNode(Puzzle currentState) {
-        unvisitedStates.remove(currentState);
-        visitedStates.add(currentState);
-    }
 }
