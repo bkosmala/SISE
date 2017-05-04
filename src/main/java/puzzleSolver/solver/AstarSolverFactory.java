@@ -8,14 +8,14 @@ import puzzleSolver.heuristic.Manhattan;
  * Created by maciek on 26.04.17.
  */
 public class AstarSolverFactory {
-    public static AstarSolver createAstarSolver(HeuristicType heuristicType, Integer[][] puzzle) {
+    public static AstarSolver createAstarSolver(HeuristicType heuristicType) {
         switch (heuristicType) {
             case HAMMING:
-                return new AstarSolver(puzzle, new Hamming());
+                return new AstarSolver(new Hamming());
             case MANHATTAN:
-                return new AstarSolver(puzzle, new Manhattan());
+                return new AstarSolver(new Manhattan());
             default:
-                return null;            // TODO nie zwracac nulla rzucic wyjatkiem
+                return null;            // zla praktyka
         }
     }
 }

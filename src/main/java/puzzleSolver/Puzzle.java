@@ -1,9 +1,8 @@
 package puzzleSolver;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.tuple.Pair;
+import puzzleSolver.util.PuzzleUtil;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,28 +14,31 @@ import java.util.stream.IntStream;
  */
 public class Puzzle {
 
-    // todo maja być dwa wymiary - beda mogly byc rozne
-    private int dimension;
+    private int rows;
+    private int columns;
 
     private int[][] puzzleArray;
 
-    private static int[][] goalState = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,0}};
+    private static int[][] goalState;
 
     private short zeroColumn;
     private short zeroRow;
     private String path;        //zapisywanie kolejnych ruchów
 
-    public Puzzle(int[][] puzzle, int width, int height) {
-        dimension = width;
+    public Puzzle(int[][] puzzle, int columns, int rows) {
+        this.rows = rows;
+        this.columns = columns;
+        goalState = PuzzleUtil.getOrderedPuzzle(rows, columns);
         puzzleArray = puzzle;
-        setZerPosition();
+        setZeroPosition();
         path = "";
     }
 
     public Puzzle(Puzzle original) {
-        dimension = original.dimension;
-        puzzleArray = new int[dimension][dimension];
-        for (int i = 0; i < dimension; i++) {
+        rows = original.rows;
+        columns = original.columns;
+        puzzleArray = new int[rows][columns];
+        for (int i = 0; i < rows; i++) {
             puzzleArray[i] = ArrayUtils.clone(original.puzzleArray[i]);
         }
         zeroRow = original.zeroRow;
@@ -119,7 +121,7 @@ public class Puzzle {
                 return moveRight();
             case 'l':
             case 'L':
-                return  moveLeft();
+                return moveLeft();
             case 'u':
             case 'U':
                 return moveUp();
@@ -131,16 +133,14 @@ public class Puzzle {
         }
     }
 
-    public boolean canMoveDown() {
-        return zeroRow < dimension - 1;
-    }
+    public boolean canMoveDown() { return zeroRow < rows - 1; }
 
     public boolean canMoveUp() {
         return zeroRow > 0;
     }
 
     public boolean canMoveRight() {
-        return zeroColumn < dimension - 1;
+        return zeroColumn < columns - 1;
     }
 
     public boolean canMoveLeft() {
@@ -202,9 +202,9 @@ public class Puzzle {
         return Arrays.deepEquals(puzzleArray, goalState);
     }
 
-    private void setZerPosition() {
-        for (int i = 0; i < dimension; i++) {
-            for (int j = 0; j < dimension; j++) {
+    private void setZeroPosition() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
                 if (puzzleArray[i][j] == 0) {
                     zeroColumn = (short) j;
                     zeroRow = (short) i;
@@ -247,12 +247,12 @@ public class Puzzle {
         if (o instanceof Puzzle) {
             Puzzle state = (Puzzle) o;
 
-            if (state.dimension != this.dimension) {
+            if (state.rows != this.rows || state.columns != this.columns) {
                 return false;
             }
 
-            for (int i = 0; i < dimension; i++){
-                for (int j = 0; j < dimension; j++){
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
                     if (state.puzzleArray[i][j] != puzzleArray[i][j]) {
                         return false;
                     }

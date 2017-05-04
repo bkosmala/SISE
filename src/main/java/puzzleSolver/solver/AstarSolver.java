@@ -13,14 +13,11 @@ public class AstarSolver extends HeuristicSolver {
 
     private Puzzle goal;
 
-    private Integer[][] puzzle;
-
     private Set<Puzzle> visitedStates = new HashSet<>();
     private Queue<Puzzle> unvisitedStates = new PriorityQueue<>(heuristic);
 
-    public AstarSolver(Integer[][] puzzle, Heuristic heuristic) {
+    public AstarSolver(Heuristic heuristic) {
         super(heuristic);
-        this.puzzle = puzzle;
     }
 
     @Override
@@ -39,12 +36,10 @@ public class AstarSolver extends HeuristicSolver {
         visitedStates.clear();
         unvisitedStates.clear();
         unvisitedStates.add(puzzle);
-//        Queue<Puzzle> newStates = new PriorityQueue<>(heuristic);
         Puzzle currentState;
 
         while (!unvisitedStates.isEmpty()) {
             currentState = unvisitedStates.poll();
-//            System.out.println(currentState);
             COMPUTED_STATES += 1;
             if (currentState.isGoalState()) {
                 goal = currentState;
@@ -52,8 +47,6 @@ public class AstarSolver extends HeuristicSolver {
                 break;
             }
             visitedStates.add(currentState);
-//            newStates.clear();
-//            newStates.addAll(currentState.getNeighbours());
             unvisitedStates.addAll(removeDuplicates(currentState.getNeighbours()));
         }
     }

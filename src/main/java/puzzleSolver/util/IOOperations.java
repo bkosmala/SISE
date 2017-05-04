@@ -16,8 +16,6 @@ public class IOOperations {
                 System.out.println(line);
                 input.add(line);
             }
-        } catch (FileNotFoundException io) {
-            System.out.println(io.getMessage());
         } catch (IOException io) {
             System.out.println(io.getMessage());
         }

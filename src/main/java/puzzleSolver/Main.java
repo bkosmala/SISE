@@ -25,9 +25,6 @@ public class Main {
         String outputSolutionPath = args[3];
         String outputStatsPath = args[4];
 
-        //TODO do zmiany po zrobieniu wczytywania wygenerowanej ukladanki
-        Integer[][] puzzle = new Integer[4][4];
-
         // wczytywanie z pliku
         int[][] input = IOOperations.readFromFile(inputFilePath);
         Puzzle puzzleToSolve = new Puzzle(input, input[0].length, input.length);
@@ -39,12 +36,10 @@ public class Main {
         } else if (args[0].equals("dfs")) {
             puzzleSolver = new DfsSolver(acronimParam,input);
         } else if (args[0].equals("astr")) {
-            puzzleSolver = AstarSolverFactory.createAstarSolver(HeuristicType.fromAcronim(acronimParam), puzzle);
+            puzzleSolver = AstarSolverFactory.createAstarSolver(HeuristicType.fromAcronim(acronimParam));
         } else {
             handleIncorrectInput("Niepoprawny akronim strategii!");
         }
-
-        System.out.println("Hello world!");
 
         puzzleSolver.solvePuzzle(puzzleToSolve);
 
