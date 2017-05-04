@@ -13,20 +13,15 @@ public class BfsSolver extends Solver {
     private static final int MAX_RECURSION_DEPTH = 20;
 
     private String searchOrder;
-//    private Integer[][] puzzle;
 
     private Set<Puzzle> visitedStates = new HashSet<>();
     private Queue<Puzzle> unvisitedStates = new LinkedList<>();
 
     private Puzzle goal;        // jezeli znajduje rozwiazanie to ustawiamy na ulozona ukladanke
 
-
     public BfsSolver(String searchOrder) {
         this.searchOrder = searchOrder;
     }
-
-    // todo wywalic pozniej
-    public BfsSolver() {}
 
     public void solvePuzzle(Puzzle unsolved) {
 
@@ -35,7 +30,7 @@ public class BfsSolver extends Solver {
         long endTime = System.currentTimeMillis();
         TIME_TO_SOLVE = endTime - startTime;
         VISITED_STATES = visitedStates.size();
-        MAX_DEPTH = MOVES_COUNT;            // nie wiem jak inaczej to zapisać ;)
+        MAX_DEPTH = MOVES_COUNT;            // dla tego algorytmu tak jest
         MOVES = goal.getPath();
         MOVES_COUNT = MOVES.length();
     }

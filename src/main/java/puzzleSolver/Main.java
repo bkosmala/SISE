@@ -34,7 +34,7 @@ public class Main {
         if (args[0].equals("bfs")) {
             puzzleSolver = new BfsSolver(acronimParam);
         } else if (args[0].equals("dfs")) {
-            puzzleSolver = new DfsSolver(acronimParam,input);
+            puzzleSolver = new DfsSolver(acronimParam);
         } else if (args[0].equals("astr")) {
             puzzleSolver = AstarSolverFactory.createAstarSolver(HeuristicType.fromAcronim(acronimParam));
         } else {

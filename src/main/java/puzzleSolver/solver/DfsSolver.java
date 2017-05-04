@@ -16,21 +16,19 @@ public class DfsSolver extends Solver {
     private static final int MAX_RECURSION_DEPTH = 20;
 
     private String searchOrder;
-    private int puzzle[][];
 
     private List<Puzzle> nextNodes = new ArrayList<>();
     private Set<Puzzle> visitedStates = new HashSet<>();
 
-    //temp
     private Puzzle goal;
 
-    public DfsSolver(String searchOrder, int[][] puzzle) {
+    public DfsSolver(String searchOrder) {
         this.searchOrder = searchOrder;
-        this.puzzle = puzzle;
     }
 
     public void solvePuzzle(Puzzle unsolved) {
         long startTime = System.currentTimeMillis();
+        visitedStates.add(unsolved);        // to jest chyba konieczne!!
         dfs(unsolved, MAX_RECURSION_DEPTH);
         long endTime = System.currentTimeMillis();
         TIME_TO_SOLVE = endTime - startTime;
