@@ -26,10 +26,10 @@ public class BfsSolver extends Solver {
 
     public void solvePuzzle(Puzzle unsolved) {
 
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
         bfs(unsolved, MAX_RECURSION_DEPTH);
-        long endTime = System.currentTimeMillis();
-        TIME_TO_SOLVE = endTime - startTime;
+        long endTime = System.nanoTime();
+        TIME_TO_SOLVE = (endTime - startTime) / 1000000.0;
         VISITED_STATES = visitedStates.size();
         MAX_DEPTH = MOVES_COUNT;            // dla tego algorytmu tak jest
         MOVES = goal.getPath();
@@ -48,7 +48,7 @@ public class BfsSolver extends Solver {
             COMPUTED_STATES += 1;
             if (puzzleState.isGoalState()) {
                 goal = puzzleState;
-                System.out.println(goal);
+//                System.out.println(goal);
                 break;
             }
             if (puzzleState.getPath().length() <= maxDepth) {

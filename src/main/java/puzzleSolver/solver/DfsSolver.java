@@ -27,11 +27,11 @@ public class DfsSolver extends Solver {
     }
 
     public void solvePuzzle(Puzzle unsolved) {
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
         visitedStates.add(unsolved);        // to jest chyba konieczne!!
         dfs(unsolved, MAX_RECURSION_DEPTH);
-        long endTime = System.currentTimeMillis();
-        TIME_TO_SOLVE = endTime - startTime;
+        long endTime = System.nanoTime();
+        TIME_TO_SOLVE = (endTime - startTime) / 1000000.0;
         VISITED_STATES = visitedStates.size();
         MOVES = goal.getPath();
         MOVES_COUNT = MOVES.length();
@@ -45,9 +45,9 @@ public class DfsSolver extends Solver {
             MAX_DEPTH = MAX_RECURSION_DEPTH - depth;
         }
         if (puzzleState.isGoalState()) {
-            System.out.println(puzzleState);
             goal = puzzleState;
-            System.out.println(goal.getPath());
+//            System.out.println(puzzleState);
+//            System.out.println(goal.getPath());
         }
         if (goal != null) {
             return;

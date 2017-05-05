@@ -14,7 +14,7 @@ public abstract class Solver implements SearchStrategy {
     protected static int VISITED_STATES;      // liczba stanów odwiedzonych
     protected static int COMPUTED_STATES = 0;     // liczba stanów przetworzonych
     protected static int MAX_DEPTH = 0;           // maksymalna głębokość rekursji
-    protected static long TIME_TO_SOLVE;      // czas poszukiwania rozwiązania
+    protected static double TIME_TO_SOLVE;      // czas poszukiwania rozwiązania
 
     public static String getMOVES() {
         return MOVES;
@@ -36,7 +36,7 @@ public abstract class Solver implements SearchStrategy {
         return MAX_DEPTH;
     }
 
-    public static long getTimeToSolve() {
+    public static double getTimeToSolve() {
         return TIME_TO_SOLVE;
     }
 
@@ -46,7 +46,7 @@ public abstract class Solver implements SearchStrategy {
         stats.add(String.valueOf(VISITED_STATES));
         stats.add(String.valueOf(COMPUTED_STATES));
         stats.add(String.valueOf(MAX_DEPTH));
-        stats.add(String.valueOf(TIME_TO_SOLVE));
+        stats.add(String.valueOf((double)Math.round(TIME_TO_SOLVE * 1000d) / 1000d));
         return stats.toArray(new String[stats.size()]);
     }
 }

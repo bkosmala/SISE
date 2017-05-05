@@ -48,7 +48,7 @@ public class Main {
         StatisticUtil.generateAdditionalStatisticsFile(outputStatsPath);
 
         // drukowanie na konsole - todo Usunac jak nie potrzeba
-        printInfo();
+//        printInfo();
 
     }
 

@@ -22,10 +22,10 @@ public class AstarSolver extends HeuristicSolver {
 
     @Override
     public void solvePuzzle(Puzzle unsolved) {
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
         astar(unsolved);
-        long endTime = System.currentTimeMillis();
-        TIME_TO_SOLVE = endTime - startTime;
+        long endTime = System.nanoTime();
+        TIME_TO_SOLVE = (endTime - startTime) / 1000000.0;
         MOVES = goal.getPath();
         MOVES_COUNT = MOVES.length();
         VISITED_STATES = visitedStates.size();
@@ -43,7 +43,7 @@ public class AstarSolver extends HeuristicSolver {
             COMPUTED_STATES += 1;
             if (currentState.isGoalState()) {
                 goal = currentState;
-                System.out.println(goal);
+//                System.out.println(goal);
                 break;
             }
             visitedStates.add(currentState);
