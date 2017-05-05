@@ -26,8 +26,10 @@ public class AstarSolver extends HeuristicSolver {
         astar(unsolved);
         long endTime = System.nanoTime();
         TIME_TO_SOLVE = (endTime - startTime) / 1000000.0;
-        MOVES = goal.getPath();
-        MOVES_COUNT = MOVES.length();
+        if (goal != null) {
+            MOVES = goal.getPath();
+            MOVES_COUNT = MOVES.length();
+        }
         VISITED_STATES = visitedStates.size();
     }
 
