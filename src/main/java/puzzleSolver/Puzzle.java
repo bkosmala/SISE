@@ -114,7 +114,35 @@ public class Puzzle {
         return Optional.of(newPuzzle);
     }
 
+    private boolean canMove(char direction) {
+        char inverseDirection = 'z';
+        switch (direction) {
+            case 'r':
+            case 'R':
+                inverseDirection = 'l';
+                break;
+            case 'l':
+            case 'L':
+                inverseDirection = 'r';
+                break;
+            case 'u':
+            case 'U':
+                inverseDirection = 'd';
+                break;
+            case 'd':
+            case 'D':
+                inverseDirection = 'u';
+                break;
+            default:
+                return true;
+        }
+        return !this.path.endsWith(String.valueOf(inverseDirection).toLowerCase());
+    }
+
     private Optional<Puzzle> move(char direction) {
+        if (!canMove(direction)) {
+            return Optional.empty();
+        }
         switch (direction) {
             case 'r':
             case 'R':
