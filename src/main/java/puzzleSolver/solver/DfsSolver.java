@@ -47,8 +47,8 @@ public class DfsSolver extends Solver {
         }
         if (puzzleState.isGoalState()) {
             goal = puzzleState;
-            System.out.println(puzzleState);
-            System.out.println(goal.getPath());
+//            System.out.println(puzzleState);
+//            System.out.println(goal.getPath());
             return;
         }
         if (goal != null) {
