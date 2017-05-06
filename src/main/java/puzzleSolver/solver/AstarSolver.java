@@ -38,22 +38,23 @@ public class AstarSolver extends HeuristicSolver {
         visitedStates.clear();
         unvisitedStates.clear();
         unvisitedStates.add(puzzle);
-        Puzzle currentState;
+        Puzzle currentState = puzzle;
 
-        while (!unvisitedStates.isEmpty()) {
+        while (!unvisitedStates.isEmpty() && !currentState.isGoalState()) {
             currentState = unvisitedStates.poll();
-            COMPUTED_STATES += 1;
-            if (currentState.isGoalState()) {
-                goal = currentState;
-//                System.out.println(goal);
-                break;
+            for (Puzzle succ : currentState.getNeighbours()) {
+                if (visitedStates.add(succ)) {
+                    unvisitedStates.add(succ);
+                }
             }
-            visitedStates.add(currentState);
-            unvisitedStates.addAll(removeDuplicates(currentState.getNeighbours()));
+            COMPUTED_STATES++;
+        }
+        if (currentState.isGoalState()) {
+            goal = currentState;
         }
     }
 
-    private List<Puzzle> removeDuplicates(List<Puzzle> possibleMoves) {
-        return possibleMoves.stream().filter(p -> !visitedStates.contains(p)).collect(Collectors.toList());
-    }
+//    private List<Puzzle> removeDuplicates(List<Puzzle> possibleMoves) {
+//        return possibleMoves.stream().filter(p -> !visitedStates.contains(p)).collect(Collectors.toList());
+//    }
 }

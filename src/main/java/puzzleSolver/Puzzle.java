@@ -289,6 +289,11 @@ public class Puzzle {
 
     @Override
     public int hashCode() {
-        return toString().hashCode();
+        int result = rows;
+        result = 31 * result + columns;
+        result = 31 * result + Arrays.deepHashCode(puzzleArray);
+        result = 31 * result + (int) zeroColumn;
+        result = 31 * result + (int) zeroRow;
+        return result;
     }
 }

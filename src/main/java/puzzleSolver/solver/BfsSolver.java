@@ -57,15 +57,18 @@ public class BfsSolver extends Solver {
             }
             if (puzzleState.getPath().length() <= maxDepth) {
                 possibleMoves = puzzleState.getNeighbours(searchOrder);
-                unvisitedStates.addAll(removeDuplicates(possibleMoves));
-                visitedStates.addAll(unvisitedStates);
+                for (Puzzle succ : possibleMoves) {
+                    if (visitedStates.add(succ)) {
+                        unvisitedStates.add(succ);
+                    }
+                }
             }
         }
     }
 
-    // czasochlonna metoda
-    private List<Puzzle> removeDuplicates(List<Puzzle> possibleMoves) {
-        return possibleMoves.stream().filter(p -> !visitedStates.contains(p)).collect(Collectors.toList());
-    }
+//    // czasochlonna metoda
+//    private List<Puzzle> removeDuplicates(List<Puzzle> possibleMoves) {
+//        return possibleMoves.stream().filter(p -> !visitedStates.contains(p)).collect(Collectors.toList());
+//    }
 
 }
