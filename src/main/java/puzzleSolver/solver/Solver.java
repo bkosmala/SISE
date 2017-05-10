@@ -1,5 +1,7 @@
 package puzzleSolver.solver;
 
+import puzzleSolver.Puzzle;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,9 @@ import java.util.List;
  * Created by maciek on 01.05.17.
  */
 public abstract class Solver implements SearchStrategy {
+
+    // jezeli solver znajduje ukladanke to ustawiamy jak nie znajduje to pozostaje null
+    protected Puzzle goal;
 
     // do statystyk
     protected static String MOVES;            // ciąg kolejnych ruchów

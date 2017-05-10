@@ -18,8 +18,6 @@ public class BfsSolver extends Solver {
     private Set<Puzzle> visitedStates = new HashSet<>();
     private Queue<Puzzle> unvisitedStates = new LinkedList<>();
 
-    private Puzzle goal;        // jezeli znajduje rozwiazanie to ustawiamy na ulozona ukladanke
-
     public BfsSolver(String searchOrder) {
         this.searchOrder = searchOrder;
     }
@@ -49,7 +47,6 @@ public class BfsSolver extends Solver {
             COMPUTED_STATES += 1;
             if (puzzleState.isGoalState()) {
                 goal = puzzleState;
-//                System.out.println(goal);
                 break;
             }
             if (puzzleState.getPath().length() > MAX_DEPTH) {
@@ -65,10 +62,5 @@ public class BfsSolver extends Solver {
             }
         }
     }
-
-//    // czasochlonna metoda
-//    private List<Puzzle> removeDuplicates(List<Puzzle> possibleMoves) {
-//        return possibleMoves.stream().filter(p -> !visitedStates.contains(p)).collect(Collectors.toList());
-//    }
 
 }

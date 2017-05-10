@@ -16,9 +16,7 @@ public class DfsSolver extends Solver {
 
     private String searchOrder;
 
-    //    private Stack<Puzzle> nextNodes = new Stack<>();
     private Set<Puzzle> visitedStates = new HashSet<>();
-    private Puzzle goal;
 
     public DfsSolver(String searchOrder) {
         this.searchOrder = searchOrder;
@@ -26,36 +24,28 @@ public class DfsSolver extends Solver {
 
     public void solvePuzzle(Puzzle unsolved) {
         visitedStates.clear();
-//        nextNodes.clear();
         long startTime = System.nanoTime();
         dfs(unsolved, MAX_RECURSION_DEPTH);
         long endTime = System.nanoTime();
         TIME_TO_SOLVE = (endTime - startTime) / 1000000.0;
-//        VISITED_STATES = visitedStates.size();
         if (goal != null) {
             MOVES = goal.getPath();
             MOVES_COUNT = MOVES.length();
         }
     }
 
-    // todo poprawic - co jak stan o glebokosci maks jest taki sam jak stan rodzica rozwiazania!
-    // poza tym chyba lepiej rekursja
     private void dfs(Puzzle puzzleState, int depth) {
         Deque<Puzzle> open = new ArrayDeque<>();
         open.add(puzzleState);
         visitedStates.add(puzzleState);
 
         while (!puzzleState.isGoalState() && !open.isEmpty()) {
-            // nie da sie bez tego obyc?
             if (puzzleState.getPath().length() > MAX_DEPTH) {
                 MAX_DEPTH += 1;
             }
             puzzleState = open.pop();
             if (puzzleState.getPath().length() < depth) {
                 for (Puzzle succ : Lists.reverse(puzzleState.getNeighbours(searchOrder))) {
-//                    if (visitedStates.add(succ)) {
-//                        open.push(succ);
-//                    }
                     VISITED_STATES++;
                     open.push(succ);
                 }
@@ -99,10 +89,9 @@ public class DfsSolver extends Solver {
 //        }
 //    }
 
-    private List<Puzzle> removeDuplicates(List<Puzzle> puzzles) {
-        // to moze byc czasochlonne, ale co tam todo sprawdzic czy nie lepiej trzymac parent w Puzzle
-        return puzzles.stream()
-                .filter(p -> !visitedStates.contains(p))
-                .collect(Collectors.toList());
-    }
+//    private List<Puzzle> removeDuplicates(List<Puzzle> puzzles) {
+//        return puzzles.stream()
+//                .filter(p -> !visitedStates.contains(p))
+//                .collect(Collectors.toList());
+//    }
 }

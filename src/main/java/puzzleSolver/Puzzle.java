@@ -23,7 +23,7 @@ public class Puzzle {
 
     private short zeroColumn;
     private short zeroRow;
-    private String path;        //zapisywanie kolejnych ruchów
+    private String path;
 
     public Puzzle(int[][] puzzle, int columns, int rows) {
         this.rows = rows;

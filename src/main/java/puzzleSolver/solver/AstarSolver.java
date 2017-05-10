@@ -11,8 +11,6 @@ import java.util.stream.Collectors;
  */
 public class AstarSolver extends HeuristicSolver {
 
-    private Puzzle goal;
-
     private Set<Puzzle> visitedStates = new HashSet<>();
     private Queue<Puzzle> unvisitedStates = new PriorityQueue<>(heuristic);
 
@@ -54,7 +52,4 @@ public class AstarSolver extends HeuristicSolver {
         }
     }
 
-//    private List<Puzzle> removeDuplicates(List<Puzzle> possibleMoves) {
-//        return possibleMoves.stream().filter(p -> !visitedStates.contains(p)).collect(Collectors.toList());
-//    }
 }
