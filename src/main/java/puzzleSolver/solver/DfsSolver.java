@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import puzzleSolver.Puzzle;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -30,7 +31,7 @@ public class DfsSolver extends Solver {
         dfs(unsolved, MAX_RECURSION_DEPTH);
         long endTime = System.nanoTime();
         TIME_TO_SOLVE = (endTime - startTime) / 1000000.0;
-        VISITED_STATES = visitedStates.size();
+//        VISITED_STATES = visitedStates.size();
         if (goal != null) {
             MOVES = goal.getPath();
             MOVES_COUNT = MOVES.length();
@@ -52,9 +53,11 @@ public class DfsSolver extends Solver {
             puzzleState = open.pop();
             if (puzzleState.getPath().length() < depth) {
                 for (Puzzle succ : Lists.reverse(puzzleState.getNeighbours(searchOrder))) {
-                    if (visitedStates.add(succ)) {
-                        open.push(succ);
-                    }
+//                    if (visitedStates.add(succ)) {
+//                        open.push(succ);
+//                    }
+                    VISITED_STATES++;
+                    open.push(succ);
                 }
             }
             COMPUTED_STATES++;
