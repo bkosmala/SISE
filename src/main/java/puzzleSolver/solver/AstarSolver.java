@@ -28,7 +28,7 @@ public class AstarSolver extends HeuristicSolver {
             MOVES = goal.getPath();
             MOVES_COUNT = MOVES.length();
         }
-        VISITED_STATES = visitedStates.size();
+//        VISITED_STATES = visitedStates.size();
     }
 
     private void astar(Puzzle puzzle) {
@@ -40,7 +40,11 @@ public class AstarSolver extends HeuristicSolver {
 
         while (!unvisitedStates.isEmpty() && !currentState.isGoalState()) {
             currentState = unvisitedStates.poll();
+            if (currentState.getDepth() > MAX_DEPTH) {
+                MAX_DEPTH += 1;
+            }
             for (Puzzle succ : currentState.getNeighbours()) {
+                VISITED_STATES++;
                 if (visitedStates.add(succ)) {
                     unvisitedStates.add(succ);
                 }

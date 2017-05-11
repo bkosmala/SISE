@@ -47,7 +47,7 @@ public class Main {
         StatisticUtil.generateBasicReport(outputSolutionPath);
         StatisticUtil.generateAdditionalStatisticsFile(outputStatsPath);
 
-//        printInfo();
+        printInfo();
         if (Solver.getMovesCount() == -1) {
             System.err.println(args[0] + " Nie znaleziono rozwiazania!! " + inputFilePath);
         }

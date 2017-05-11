@@ -24,6 +24,7 @@ public class Puzzle {
     private short zeroColumn;
     private short zeroRow;
     private String path;
+    private int depth;
 
     public Puzzle(int[][] puzzle, int columns, int rows) {
         this.rows = rows;
@@ -31,6 +32,7 @@ public class Puzzle {
         goalState = PuzzleUtil.getOrderedPuzzle(rows, columns);
         puzzleArray = puzzle;
         setZeroPosition();
+        depth = 0;
         path = "";
     }
 
@@ -44,6 +46,7 @@ public class Puzzle {
         zeroRow = original.zeroRow;
         zeroColumn = original.zeroColumn;
         path = original.path;
+        depth = original.depth + 1;
     }
 
     public Optional<Puzzle> moveLeft() {
@@ -244,6 +247,8 @@ public class Puzzle {
     public String getPath() {
         return path;
     }
+
+    public int getDepth() { return depth; }
 
     @Override
     public String toString() {

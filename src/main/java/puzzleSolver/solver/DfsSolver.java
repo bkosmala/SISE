@@ -40,7 +40,7 @@ public class DfsSolver extends Solver {
         visitedStates.add(puzzleState);
 
         while (!puzzleState.isGoalState() && !open.isEmpty()) {
-            if (puzzleState.getPath().length() > MAX_DEPTH) {
+            if (puzzleState.getDepth() > MAX_DEPTH) {
                 MAX_DEPTH += 1;
             }
             puzzleState = open.pop();

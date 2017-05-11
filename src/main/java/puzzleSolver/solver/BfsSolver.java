@@ -28,7 +28,7 @@ public class BfsSolver extends Solver {
         bfs(unsolved, MAX_RECURSION_DEPTH);
         long endTime = System.nanoTime();
         TIME_TO_SOLVE = (endTime - startTime) / 1000000.0;
-        VISITED_STATES = visitedStates.size();
+//        VISITED_STATES = visitedStates.size();
         if (goal != null) {
             MOVES = goal.getPath();
             MOVES_COUNT = MOVES.length();
@@ -49,12 +49,13 @@ public class BfsSolver extends Solver {
                 goal = puzzleState;
                 break;
             }
-            if (puzzleState.getPath().length() > MAX_DEPTH) {
+            if (puzzleState.getDepth() > MAX_DEPTH) {
                 MAX_DEPTH += 1;
             }
             if (puzzleState.getPath().length() <= maxDepth) {
                 possibleMoves = puzzleState.getNeighbours(searchOrder);
                 for (Puzzle succ : possibleMoves) {
+                    VISITED_STATES++;
                     if (visitedStates.add(succ)) {
                         unvisitedStates.add(succ);
                     }
