@@ -45,12 +45,12 @@ public class BfsSolver extends Solver {
         while (!unvisitedStates.isEmpty()) {
             puzzleState = unvisitedStates.poll();
             COMPUTED_STATES += 1;
+            if (puzzleState.getDepth() > MAX_DEPTH) {
+                MAX_DEPTH += 1;
+            }
             if (puzzleState.isGoalState()) {
                 goal = puzzleState;
                 break;
-            }
-            if (puzzleState.getDepth() > MAX_DEPTH) {
-                MAX_DEPTH += 1;
             }
             if (puzzleState.getPath().length() <= maxDepth) {
                 possibleMoves = puzzleState.getNeighbours(searchOrder);
