@@ -38,13 +38,15 @@ public class DfsSolver extends Solver {
         Deque<Puzzle> open = new ArrayDeque<>();
         open.add(puzzleState);
         visitedStates.add(puzzleState);
-
+        int currentDepth = 0;
         while (!puzzleState.isGoalState() && !open.isEmpty()) {
-            if (puzzleState.getDepth() > MAX_DEPTH) {
+            puzzleState = open.pop();
+
+            currentDepth = puzzleState.getDepth();
+            if (currentDepth > MAX_DEPTH) {
                 MAX_DEPTH += 1;
             }
-            puzzleState = open.pop();
-            if (puzzleState.getPath().length() < depth) {
+            if (currentDepth < depth) {
                 for (Puzzle succ : Lists.reverse(puzzleState.getNeighbours(searchOrder))) {
                     VISITED_STATES++;
                     open.push(succ);
